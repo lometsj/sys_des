@@ -1,0 +1,73 @@
+#msm_aac_in
+#drivers/misc/qcom/qdsp6v2/aac_in.c
+
+resource fd_msmaacin[fd]
+openat$msmaacin(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_aac_in"]], flags flags[open_flags], mode const[0]) fd_msmaacin
+#aac_in_ioctl
+ioctl$AUDIO_START(fd fd_msmaacin, cmd const[AUDIO_START])
+#		rc = aac_in_ioctl_shared(file, cmd, NULL);
+ioctl$AUDIO_STOP(fd fd_msmaacin, cmd const[AUDIO_STOP])
+#		rc = aac_in_ioctl_shared(file, cmd, NULL);
+ioctl$AUDIO_GET_AAC_ENC_CONFIG(fd fd_msmaacin, cmd const[AUDIO_GET_AAC_ENC_CONFIG], arg ptr[out, msm_audio_aac_enc_config])
+ioctl$AUDIO_SET_AAC_ENC_CONFIG(fd fd_msmaacin, cmd const[AUDIO_SET_AAC_ENC_CONFIG], arg ptr[in, msm_audio_aac_enc_config])
+ioctl$AUDIO_GET_AAC_CONFIG(fd fd_msmaacin, cmd const[AUDIO_GET_AAC_CONFIG], arg ptr[out, msm_audio_aac_config])
+ioctl$AUDIO_SET_AAC_CONFIG(fd fd_msmaacin, cmd const[AUDIO_SET_AAC_CONFIG], arg ptr[in, msm_audio_aac_config])
+#audio_in_ioctl
+ioctl$AUDIO_FLUSH(fd fd_msmaacin, cmd const[AUDIO_FLUSH])
+ioctl$AUDIO_PAUSE(fd fd_msmaacin, cmd const[AUDIO_PAUSE])
+ioctl$AUDIO_GET_SESSION_ID(fd fd_msmaacin, cmd const[AUDIO_GET_SESSION_ID], arg ptr[out, int32])
+ioctl$AUDIO_GET_STREAM_CONFIG(fd fd_msmaacin, cmd const[AUDIO_GET_STREAM_CONFIG], arg ptr[out, msm_audio_stream_config])
+ioctl$AUDIO_SET_STREAM_CONFIG(fd fd_msmaacin, cmd const[AUDIO_SET_STREAM_CONFIG], arg ptr[in, msm_audio_stream_config])
+ioctl$AUDIO_SET_BUF_CFG(fd fd_msmaacin, cmd const[AUDIO_SET_BUF_CFG], arg ptr[in, msm_audio_buf_cfg])
+ioctl$AUDIO_GET_BUF_CFG(fd fd_msmaacin, cmd const[AUDIO_GET_BUF_CFG], arg ptr[out, msm_audio_buf_cfg])
+ioctl$AUDIO_GET_CONFIG(fd fd_msmaacin, cmd const[AUDIO_GET_CONFIG], arg ptr[out, msm_audio_config])
+ioctl$AUDIO_SET_CONFIG(fd fd_msmaacin, cmd const[AUDIO_SET_CONFIG], arg ptr[in, msm_audio_config])
+
+
+
+#include/uapi/linux/msm_audio_aac.h
+
+msm_audio_aac_enc_config {
+	channels int32
+	sample_rate int32
+	bit_rate int32
+	stream_format int32
+}
+
+msm_audio_aac_config {
+	format  int16
+	audio_object    int16
+	ep_config   int16
+	aac_section_data_resilience_flag    int16
+	aac_scalefactor_data_resilience_flag    int16
+	aac_spectral_data_resilience_flag   int16
+	sbr_on_flag int16
+	sbr_ps_on_flag  int16
+	dual_mono_mode  int16
+	channel_configuration   int16
+	sample_rate int16
+}
+
+#include/uapi/linux/msm_audio.h
+#drivers/misc/qcom/qdsp6v2/audio_utils.h
+
+msm_audio_stream_config {
+	buffer_size int32
+	buffer_count    int32
+}
+
+msm_audio_buf_cfg{
+	meta_info_enable    int32
+	frames_per_buf  int32
+}
+
+msm_audio_config {
+	buffer_size int32
+	buffer_count    int32
+	channel_count   int32
+	sample_rate int32
+	type    int32
+	meta_field  int32
+	bits    int32
+	unused  array[int32,3]
+}

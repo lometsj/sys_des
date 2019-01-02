@@ -1,0 +1,8 @@
+#msm_evrc
+#drivers/misc/qcom/qdsp6v2/audio_evrc.c
+
+resource fd_msmevrc[fd]
+openat$msmevrc(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_evrc"]], flags flags[open_flags], mode const[0]) fd_msmevrc
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmevrc, cmd const[AUDIO_START])
+

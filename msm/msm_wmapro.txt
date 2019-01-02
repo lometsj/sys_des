@@ -1,0 +1,25 @@
+#msm_wmapro
+#drivers/misc/qcom/qdsp6v2/audio_wmapro.c
+
+resource fd_msmwmapro[fd]
+openat$msmwmapro(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_wmapro"]], flags flags[open_flags], mode const[0]) fd_msmwmapro
+#audio_ioctl
+ioctl$AUDIO_GET_WMAPRO_CONFIG(fd fd_msmwmapro, cmd const[AUDIO_GET_WMAPRO_CONFIG], arg ptr[out, msm_audio_wmapro_config])
+ioctl$AUDIO_SET_WMAPRO_CONFIG(fd fd_msmwmapro, cmd const[AUDIO_SET_WMAPRO_CONFIG], arg ptr[in, msm_audio_wmapro_config])
+ioctl$AUDIO_START(fd fd_msmwmapro, cmd const[AUDIO_START])
+
+#include/uapi/linux/msm_audio_wmapro.h
+
+msm_audio_wmapro_config {
+	armdatareqthr   int16
+	validbitspersample  int8
+	numchannels int8
+	formattag   int16
+	samplingrate    int32
+	avgbytespersecond   int32
+	asfpacketlength int16
+	channelmask int32
+	encodeopt   int16
+	advancedencodeopt   int16
+	advancedencodeopt2  int32
+}

@@ -1,0 +1,46 @@
+#msm_audio_cal
+#sound/soc/msm/qdsp6v2/audio_calibration.c
+
+resource fd_msmaudiocal[fd]
+openat$msmaudiocal(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_audio_cal"]], flags flags[open_flags], mode const[0]) fd_msmaudiocal
+#audio_cal_ioctl
+#audio_cal_shared_ioctl
+ioctl$AUDIO_ALLOCATE_CALIBRATION(fd fd_msmaudiocal, cmd const[AUDIO_ALLOCATE_CALIBRATION], arg ptr[in, audio_cal_basic])
+ioctl$AUDIO_DEALLOCATE_CALIBRATION(fd fd_msmaudiocal, cmd const[AUDIO_DEALLOCATE_CALIBRATION], arg ptr[in, audio_cal_basic])
+ioctl$AUDIO_PREPARE_CALIBRATION(fd fd_msmaudiocal, cmd const[AUDIO_PREPARE_CALIBRATION], arg ptr[in, audio_cal_basic])
+ioctl$AUDIO_SET_CALIBRATION(fd fd_msmaudiocal, cmd const[AUDIO_SET_CALIBRATION], arg ptr[in,audio_cal_basic])
+ioctl$AUDIO_GET_CALIBRATION(fd fd_msmaudiocal, cmd const[AUDIO_GET_CALIBRATION], arg ptr[out, audio_cal_basic)
+ioctl$AUDIO_POST_CALIBRATION(fd fd_msmaudiocal, cmd const[AUDIO_POST_CALIBRATION], arg ptr[in, audio_cal_basic])
+
+
+#include/upai/linux/msm_audio_calibration.h
+
+struct audio_cal_data {
+	/* Size of cal data at mem_handle allocation or at vaddr */
+	cal_size	int32
+	/* If mem_handle if shared memory is used*/
+	mem_handle	int32
+	/* size of virtual memory if shared memory not used */
+}
+
+struct audio_cal_type_header {
+	version	int32
+	buffer_number	int32
+}
+
+struct audio_cal_type_basic {
+	cal_hdr	audio_cal_type_header	
+	cal_data	audio_cal_data
+}
+
+struct audio_cal_header {
+	data_size	int32
+	version	int32
+	cal_type	int32
+	cal_type_size	int32
+}
+
+audio_cal_basic {
+	hdr audio_cal_header
+	cal_type    audio_cal_type_basic
+} 

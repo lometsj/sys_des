@@ -1,0 +1,8 @@
+#msm_qcelp
+#drivers/misc/qcom/qdsp6v2/audio_qcelp.c
+
+resource fd_msmqcelp[fd]
+openat$msmqcelp(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_qcelp"]], flags flags[open_flags], mode const[0]) fd_msmqcelp
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmqcelp, cmd const[AUDIO_START])
+

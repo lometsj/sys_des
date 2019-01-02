@@ -1,0 +1,28 @@
+#msm_alac
+#drivers/misc/qcom/qdsp6v2/audio_alac.c
+
+resource fd_msmalac[fd]
+openat$msmalac(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_alac"]], flags flags[open_flags], mode flags[open_mode]) fd_msmalac
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmalac, cmd const[AUDIO_START], arg ptr[])
+ioctl$AUDIO_GET_ALAC_CONFIG(fd fd_msmalac, cmd const[AUDIO_GET_ALAC_CONFIG], arg ptr[out, msm_audio_alac_config])
+ioctl$AUDIO_SET_ALAC_CONFIG(fd fd_msmalac, cmd const[AUDIO_SET_ALAC_CONFIG], arg ptr[in, msm_audio_alac_config])
+
+
+#include/uapi/linux/msm_audio_alac.h
+
+msm_audio_alac_config {
+	frameLength    int32
+	compatVersion   int8
+	bitDepth    int8
+	pb  int8
+	mb  int8
+	kb  int8
+	channelCount    int8
+	maxRun  int16
+	maxSize    int32
+	averageBitRate int32
+	sampleRate int32
+	channelLayout  int32
+}
+

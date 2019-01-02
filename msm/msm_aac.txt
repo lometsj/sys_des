@@ -1,0 +1,117 @@
+#msm_aac
+#drivers/misc/qcom/qdsp6v2/audio_aac.c
+
+resource fd_msmaac[fd]
+openat$msmaac(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_aac"]], flags flags[open_flags], mode const[0]) fd_msmaac
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmaac, cmd const[AUDIO_START])
+ioctl$AUDIO_GET_AAC_CONFIG(fd fd_msmaac, cmd const[AUDIO_GET_AAC_CONFIG], arg ptr[out, msm_audio_aac_config])
+ioctl$AUDIO_SET_AAC_CONFIG(fd fd_msmaac, cmd const[AUDIO_SET_AAC_CONFIG], arg ptr[in, msm_audio_aac_config])
+#audio_ioctl->default:audio_aio_ioctl
+ioctl$AUDIO_ABORT_GET_EVENT(fd fd_msmaac, cmd const[AUDIO_ABORT_GET_EVENT])
+ioctl$AUDIO_OUTPORT_FLUSH(fd fd_msmaac, cmd const[AUDIO_OUTPORT_FLUSH])
+ioctl$AUDIO_STOP(fd fd_msmaac, cmd const[AUDIO_STOP])
+ioctl$AUDIO_PAUSE(fd fd_msmaac, cmd const[AUDIO_PAUSE])
+ioctl$AUDIO_FLUSH(fd fd_msmaac, cmd const[AUDIO_FLUSH])
+ioctl$AUDIO_GET_SESSION_ID(fd fd_msmaac, cmd const[AUDIO_GET_SESSION_ID], arg ptr[out, int16])
+ioctl$AUDIO_PM_AWAKE(fd fd_msmaac, cmd const[AUDIO_PM_AWAKE])
+ioctl$AUDIO_PM_RELAX(fd fd_msmaac, cmd const[AUDIO_PM_RELAX])
+ioctl$AUDIO_GET_STATS(fd fd_msmaac, cmd const[AUDIO_GET_STATS], arg ptr[out, msm_audio_stats])
+ioctl$AUDIO_GET_EVENT(fd fd_msmaac, cmd const[AUDIO_GET_EVENT], arg ptr[out, msm_audio_event])
+ioctl$AUDIO_ASYNC_WRITE(fd fd_msmaac, cmd const[AUDIO_ASYNC_WRITE], arg ptr[in, msm_audio_aio_buf])
+ioctl$AUDIO_ASYNC_READ(fd fd_msmaac, cmd const[AUDIO_ASYNC_READ], arg ptr[in, msm_audio_aio_buf])
+ioctl$AUDIO_GET_STREAM_CONFIG(fd fd_msmaac, cmd const[AUDIO_GET_STREAM_CONFIG], arg ptr[out, msm_audio_stream_config])
+ioctl$AUDIO_SET_STREAM_CONFIG(fd fd_msmaac, cmd const[AUDIO_SET_STREAM_CONFIG], arg ptr[in, msm_audio_stream_config])
+ioctl$AUDIO_GET_CONFIG(fd fd_msmaac, cmd const[AUDIO_GET_CONFIG], arg ptr[out, msm_audio_config])
+ioctl$AUDIO_SET_CONFIG(fd fd_msmaac, cmd const[AUDIO_SET_CONFIG], arg ptr[in, msm_audio_config])
+ioctl$AUDIO_SET_BUF_CFG(fd fd_msmaac, cmd const[AUDIO_SET_BUF_CFG], arg ptr[in, msm_audio_buf_cfg])
+ioctl$AUDIO_GET_BUF_CFG(fd fd_msmaac, cmd const[AUDIO_GET_BUF_CFG], arg ptr[out, msm_audio_buf_cfg])
+ioctl$AUDIO_REGISTER_ION(fd fd_msmaac, cmd const[AUDIO_REGISTER_ION], arg ptr[in, msm_audio_ion_info])
+ioctl$AUDIO_DEREGISTER_ION(fd fd_msmaac, cmd const[AUDIO_DEREGISTER_ION], arg ptr[in, msm_audio_ion_info])
+
+#include/uapi/linux/msm_audio_aac.h
+
+msm_audio_aac_config {
+	format  int16
+	audio_object    int16
+	ep_config   int16
+	aac_section_data_resilience_flag    int16
+	aac_scalefactor_data_resilience_flag    int16
+	aac_spectral_data_resilience_flag   int16
+	sbr_on_flag int16
+	sbr_ps_on_flag  int16
+	dual_mono_mode  int16
+	channel_configuration   int16
+	sample_rate int16
+};
+
+#include/uapi/linux/msm_audio.h
+#drivers/misc/qcom/qdsp6v2/audio_utils_aio.h
+
+msm_audio_stats {
+	byte_count  int32
+	sample_count    int32
+	unused   array[int32,2]
+}
+
+msm_audio_event {
+	event_type  int32
+	timeout_ms  int32
+	event_payload   msm_audio_event_payload
+}
+
+msm_audio_event_payload [
+	aio_buf msm_audio_aio_buf
+	stream_info msm_audio_bitstream_info
+	error_info msm_audio_bitstream_error_info
+	reserved    int32
+]
+
+msm_audio_aio_buf {
+	buf_addr    ptr[out, array]
+	buf_len int32
+	data_len    int32
+	private_data    ptr[out, array]
+	mfield_sz   int16 
+}
+
+msm_audio_bitstream_info {
+	codec_type  int32
+	chan_info   int32
+	sample_rate int32
+	bit_stream_info int32
+	bit_rate    int32
+	unused   array[int32,3]
+}
+
+msm_audio_bitstream_error_info {
+	dec_id  int32
+	err_msg_indicator   int32
+	err_type    int32
+}
+
+msm_audio_stream_config {
+	buffer_size int32
+	buffer_count    int32
+}
+
+msm_audio_config {
+	buffer_size int32
+	buffer_count    int32
+	channel_count   int32
+	sample_rate int32
+	type    int32
+	meta_field  int32
+	bits    int32
+	unused  array[int32,3]
+}
+
+msm_audio_buf_cfg{
+	meta_info_enable    int32
+	frames_per_buf  int32
+}
+
+msm_audio_ion_info {
+	fd  int32
+	vaddr   ptr[in, string]
+}

@@ -1,0 +1,26 @@
+#f2fs
+#fs/f2fs/file.c
+
+resource fd[fd]
+#f2fs_ioctl
+ioctl$F2FS_IOC_GETFLAGS(fd fd, cmd const[F2FS_IOC_GETFLAGS], arg ptr[out, flags[f2fs_inode_flags, intptr]])
+ioctl$F2FS_IOC_SETFLAGS(fd fd, cmd const[F2FS_IOC_SETFLAGS], arg ptr[in , flags[f2fs_inode_flags, intptr]])
+ioctl$F2FS_IOC_START_ATOMIC_WRITE(fd fd, cmd const[F2FS_IOC_START_ATOMIC_WRITE])
+ioctl$F2FS_IOC_COMMIT_ATOMIC_WRITE(fd fd, cmd const[F2FS_IOC_COMMIT_ATOMIC_WRITE])
+ioctl$F2FS_IOC_START_VOLATILE_WRITE(fd fd, cmd const[F2FS_IOC_START_VOLATILE_WRITE])
+ioctl$FITRIM(fd fd, cmd const[FITRIM], arg ptr[inout,fstrim_range])
+
+
+#fs/f2fs/f2fs.h
+
+f2fs_inode_flags = FI_NEW_INODE, FI_DIRTY_INODE, FI_DIRTY_DIR, FI_INC_LINK, FI_ACL_MODE, FI_NO_ALLOC, FI_UPDATE_DIR, FI_DELAY_IPUT, FI_NO_EXTENT, FI_INLINE_XATTR, FI_INLINE_DATA, FI_APPEND_WRITE, FI_UPDATE_WRITE, FI_NEED_IPU, FI_ATOMIC_FILE, FI_VOLATILE_FILE
+
+#include/uapi/linux/fs.h
+
+fstrim_range {
+	start   int64
+	len int64
+	minlen  int64
+}
+
+

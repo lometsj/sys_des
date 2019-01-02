@@ -1,0 +1,10 @@
+#msm_amrwb
+#drivers/misc/qcom/qdsp6v2/audio_amrwb.c
+
+resource fd_msmamrwb[fd]
+openat$msmamrwb(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_amrwb"]], flags flags[open_flags], mode const[0]) fd_msmamrwb
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmamrwb, cmd const[AUDIO_START])
+
+
+

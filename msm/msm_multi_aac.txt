@@ -1,0 +1,28 @@
+#msm_multi_aac
+#drivers/misc/qcom/qdsp6v2/audio_multi_aac.c
+
+resource fd_msmmultiaac[fd]
+openat$msmmultiaac(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_multi_aac"]], flags flags[open_flags], mode const[0]) fd_msmmultiaac
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmmultiaac, cmd const[AUDIO_START])
+ioctl$AUDIO_GET_AAC_CONFIG(fd fd_msmmultiaac, cmd const[AUDIO_GET_AAC_CONFIG], arg ptr[out, msm_audio_aac_config)
+ioctl$AUDIO_SET_AAC_CONFIG(fd fd_msmmultiaac, cmd const[AUDIO_SET_AAC_CONFIG], arg ptr[in, msm_audio_aac_config])
+ioctl$AUDIO_SET_AAC_MIX_CONFIG(fd fd_msmmultiaac, cmd const[AUDIO_SET_AAC_MIX_CONFIG], arg ptr[in, mix_coeff])
+
+
+#include/uapi/inux/msm_audio_aac.h
+
+msm_audio_aac_config {
+	format  int16
+	audio_object    int16
+	ep_config   int16
+	aac_section_data_resilience_flag    int16
+	aac_scalefactor_data_resilience_flag    int16
+	aac_spectral_data_resilience_flag   int16
+	sbr_on_flag int16
+	sbr_ps_on_flag  int16
+	dual_mono_mode  int16
+	channel_configuration   int16
+	sample_rate int16
+}
+

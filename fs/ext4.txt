@@ -1,0 +1,65 @@
+#ext4
+#fs/ext4/ioctl.c
+
+
+ioctl$EXT4_IOC_GETFLAGS(fd fd, cmd const[EXT4_IOC_GETFLAGS], arg ptr[out, flags[ext4_inode_flags, intptr] ])
+ioctl$EXT4_IOC_SETFLAGS(fd fd, cmd const[EXT4_IOC_SETFLAGS], arg ptr[in, flags[ext4_inode_flags, intptr] ])
+ioctl$EXT4_IOC_GETVERSION(fd fd, cmd const[EXT4_IOC_GETVERSION], arg ptr[out, int32])
+ioctl$EXT4_IOC_GETVERSION_OLD(fd fd, cmd const[EXT4_IOC_GETVERSION_OLD], arg ptr[out, int32])
+ioctl$EXT4_IOC_SETVERSION(fd fd, cmd const[EXT4_IOC_SETVERSION], arg ptr[in, int32])
+ioctl$EXT4_IOC_SETVERSION_OLD(fd fd, cmd const[EXT4_IOC_SETVERSION_OLD], arg ptr[in, int32])
+ioctl$EXT4_IOC_GROUP_EXTEND(fd fd, cmd const[EXT4_IOC_GROUP_EXTEND], arg ptr[in, int32])
+ioctl$EXT4_IOC_MOVE_EXT(fd fd, cmd const[EXT4_IOC_MOVE_EXT], arg ptr[in, move_extent])
+ioctl$EXT4_IOC_GROUP_ADD(fd fd, cmd const[EXT4_IOC_GROUP_ADD], arg ptr[in, ext4_new_group_data])
+ioctl$EXT4_IOC_MIGRATE(fd fd, cmd const[EXT4_IOC_MIGRATE])
+ioctl$EXT4_IOC_ALLOC_DA_BLKS(fd fd, cmd const[EXT4_IOC_ALLOC_DA_BLKS])
+ioctl$EXT4_IOC_SWAP_BOOT(fd fd, cmd const[EXT4_IOC_SWAP_BOOT])
+ioctl$EXT4_IOC_RESIZE_FS(fd fd, cmd const[EXT4_IOC_RESIZE_FS], arg ptr[in, int64])
+ioctl$FIDTRIM(fd fd, cmd const[FIDTRIM], arg ptr[in, fstrim_range])
+ioctl$FITRIM(fd fd, cmd const[FITRIM], arg ptr[in, fstrim_range])
+ioctl$EXT4_IOC_PRECACHE_EXTENTS(fd fd, cmd const[EXT4_IOC_PRECACHE_EXTENTS])
+ioctl$EXT4_IOC_SET_ENCRYPTION_POLICY(fd fd, cmd const[EXT4_IOC_SET_ENCRYPTION_POLICY], arg ptr[in, ext4_encryption_policy])
+ioctl$EXT4_IOC_GET_ENCRYPTION_PWSALT(fd fd, cmd const[EXT4_IOC_GET_ENCRYPTION_PWSALT], arg ptr[out, array])
+ioctl$EXT4_IOC_GET_ENCRYPTION_POLICY(fd fd, cmd const[EXT4_IOC_GET_ENCRYPTION_POLICY], arg ptr[out, array])
+
+#fs/ext4/ext4.h
+
+ext4_inode_flags = EXT4_SECRM_FL, EXT4_UNRM_FL, EXT4_COMPR_FL, EXT4_SYNC_FL, EXT4_IMMUTABLE_FL, EXT4_APPEND_FL, EXT4_NODUMP_FL, EXT4_NOATIME_FL, EXT4_DIRTY_FL, EXT4_COMPRBLK_FL, EXT4_NOCOMPR_FL, EXT4_ENCRYPT_FL, EXT4_INDEX_FL, EXT4_IMAGIC_FL, EXT4_JOURNAL_DATA_FL, EXT4_NOTAIL_FL, EXT4_DIRSYNC_FL, EXT4_TOPDIR_FL, EXT4_HUGE_FILE_FL, EXT4_EXTENTS_FL, EXT4_EA_INODE_FL, EXT4_EOFBLOCKS_FL, EXT4_INLINE_DATA_FL, EXT4_RESERVED_FL, EXT4_FL_USER_VISIBLE, EXT4_FL_USER_MODIFIABLE
+
+#include/uapi/linux/fs.h
+move_extent {
+	reserved    int32		#/* should be zero */
+	donor_fd    int32	#/* donor file descriptor */
+	orig_start  int64	#/* logical start offset in block for orig */
+	donor_start int64	#/* logical start offset in block for donor */
+	len int64		#/* block length to be moved */
+	moved_len   int64	#/* moved block length */
+}
+
+ext4_new_group_data {
+	group   int32
+	block_bitmap    int64
+	inode_bitmap    int64
+	inode_table int64
+	blocks_count    int32
+	reserved_blocks int16
+	unused  int16
+	free_blocks_count   int32
+}
+
+fstrim_range {
+	start   int64
+	len int64
+	minlen  int64
+}
+
+
+ext4_encryption_policy {
+	version int8
+	contents_encryption_mode    int8
+	filenames_encryption_mode   int8
+	flags   int8
+    master_key_descriptor[int8, EXT4_KEY_DESCRIPTOR_SIZE];
+} [packed]
+
+define EXT4_KEY_DESCRIPTOR_SIZE 8

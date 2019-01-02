@@ -1,0 +1,19 @@
+#msm_evrc_in
+#drivers/misc/qcom/qdsp6v2/evrc_in.c
+
+resource fd_msmevrcin[fd]
+openat$msmevrcin(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_evrc_in"]], flags flags[open_flags], mode const[0]) fd_msmevrcin
+#evrc_in_ioctl
+ioctl$AUDIO_START(fd fd_msmevrcin, cmd const[AUDIO_START])
+ioctl$AUDIO_STOP(fd fd_msmevrcin, cmd const[AUDIO_STOP])
+ioctl$AUDIO_GET_EVRC_ENC_CONFIG(fd fd_msmevrcin, cmd const[AUDIO_GET_EVRC_ENC_CONFIG], arg ptr[out, msm_audio_evrc_enc_config])
+ioctl$AUDIO_SET_EVRC_ENC_CONFIG(fd fd_msmevrcin, cmd const[AUDIO_SET_EVRC_ENC_CONFIG], arg ptr[in, msm_audio_evrc_enc_config])
+
+#include/uapi/linux/msm_audio_qcp.h
+
+msm_audio_evrc_enc_config {
+	cdma_rate   int32
+	min_bit_rate    int32
+	max_bit_rate    int32
+}
+

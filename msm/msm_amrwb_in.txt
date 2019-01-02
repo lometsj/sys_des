@@ -1,0 +1,21 @@
+#msm_amrwb_in
+#drivers/misc/qcom/qdsp6v2/amrwb_in.c
+
+resource fd_msmamrwbin[fd]
+openat$msmamrwbin(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_amrwb_in"]], flags flags[open_flags], mode cosnt[0]) fd_msmamrwbin
+#amrwb_in_ioctl
+ioctl$AUDIO_START(fd fd_msmamrwbin, cmd const[AUDIO_START])
+ioctl$AUDIO_STOP(fd fd_msmamrwbin, cmd const[AUDIO_STOP])
+ioctl$AUDIO_GET_AMRWB_ENC_CONFIG(fd fd_msmamrwbin, cmd const[AUDIO_GET_AMRWB_ENC_CONFIG], arg ptr[out, msm_audio_amrwb_enc_config])
+ioctl$AUDIO_SET_AMRWB_ENC_CONFIG(fd fd_msmamrwbin, cmd const[AUDIO_SET_AMRWB_ENC_CONFIG], arg ptr[in, msm_audio_amrwb_enc_config])
+
+
+
+#include/uapi/linux/msm_audio_amrwb.h
+
+msm_audio_amrwb_enc_config {
+	band_mode   int32
+	dtx_enable  int32
+	frame_format    int32
+}
+

@@ -1,0 +1,23 @@
+#msm_amrwbplus
+#drivers/misc/qcom/qdsp6v2/audio_amrwbplus.c
+
+resource fd_msmamrwbplus[fd]
+openat$msmamrwbplus(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_amrwbplus"]], flags flags[open_flags], mode const[0]) fd_msmamrwbplus
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmamrwbplus, cmd const[AUDIO_START], arg ptr[])
+ioctl$AUDIO_GET_AMRWBPLUS_CONFIG_V2(fd fd_msmamrwbplus, cmd const[AUDIO_GET_AMRWBPLUS_CONFIG_V2], arg ptr[out, msm_audio_amrwbplus_config_v2])
+ioctl$AUDIO_SET_AMRWBPLUS_CONFIG_V2(fd fd_msmamrwbplus, cmd const[AUDIO_SET_AMRWBPLUS_CONFIG_V2], arg ptr[in, msm_audio_amrwbplus_config_v2])
+
+
+#include/upai/linux/msm_audio_amrwbplus.h
+
+msm_audio_amrwbplus_config_v2 {
+	size_bytes  int32
+	version int32
+	num_channels    int32
+	amr_band_mode   int32
+	amr_dtx_mode    int32
+	amr_frame_fmt   int32
+	amr_lsf_idx int32
+}
+

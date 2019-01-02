@@ -1,0 +1,37 @@
+#msm_hweffects
+#drivers/misc/qcom/qdsp6v2/audio_hwacc_effects.c
+
+resource fd_msmhweffects[fd]
+openat$msmhweffects(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_hweffects"]], flags flags[open_flags], mode const[0]) fd_msmhweffects
+#audio_effects_ioctl
+ioctl$AUDIO_SET_EFFECTS_CONFIG(fd fd_msmhweffects, cmd const[AUDIO_SET_EFFECTS_CONFIG], arg ptr[in, msm_hwacc_effects_config])
+ioctl$AUDIO_EFFECTS_SET_BUF_LEN(fd fd_msmhweffects, cmd const[AUDIO_EFFECTS_SET_BUF_LEN], arg ptr[in, msm_hwacc_buf_cfg])
+ioctl$AUDIO_EFFECTS_GET_BUF_AVAIL(fd fd_msmhweffects, cmd const[AUDIO_EFFECTS_GET_BUF_AVAIL], arg ptr[out, int8])
+ioctl$AUDIO_EFFECTS_SET_PP_PARAMS(fd fd_msmhweffects, cmd const[AUDIO_EFFECTS_SET_PP_PARAMS], arg ptr[in, argvalues])
+
+#include/uapi/linux/msm_audio.h
+
+argvalues   array[int64, 128]
+
+struct msm_hwacc_data_config {
+	buf_size    int32
+	num_buf int32
+	num_channels    int32
+	channel_map array[int32, 8]
+	sample_rate int32
+	bits_per_sample int32
+}
+
+struct msm_hwacc_buf_cfg {
+	input_len   int32
+	output_len  int32
+}
+
+struct msm_hwacc_effects_config {
+	input   msm_hwacc_data_config
+	output  msm_hwacc_data_config 
+	buf_cfg msm_hwacc_buf_cfg
+	meta_mode_enabled   int32
+	overwrite_topology  int32
+	topology    int32
+}

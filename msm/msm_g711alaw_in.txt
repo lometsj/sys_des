@@ -1,0 +1,17 @@
+#msm_g711alaw_in
+#drivers/misc/qcom/qdsp6v2/g711alaw_in.c
+
+resource fd_msmg711alawin[fd]
+openat$msmg711alawin(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_g711alaw_in"]], flags flags[open_flags], mode const[0]) fd_msmg711alawin
+#g711_in_ioctl
+ioctl$AUDIO_START(fd fd_msmg711alawin, cmd const[AUDIO_START])
+ioctl$AUDIO_STOP(fd fd_msmg711alawin, cmd const[AUDIO_STOP])
+ioctl$AUDIO_GET_G711_ENC_CONFIG(fd fd_msmg711alawin, cmd const[AUDIO_GET_G711_ENC_CONFIG], arg ptr[out, msm_audio_g711_enc_config])
+ioctl$AUDIO_SET_G711_ENC_CONFIG(fd fd_msmg711alawin, cmd const[AUDIO_SET_G711_ENC_CONFIG], arg ptr[in, msm_audio_g711_enc_config])
+
+#include/upai/linux/msm_audio_g711.h
+
+msm_audio_g711_enc_config {
+	sample_rate int32
+}
+

@@ -1,0 +1,24 @@
+#msm_wma
+#drivers/misc/qcom/qdsp6v2/audio_wma.c
+
+resource fd_msmwma[fd]
+syz_open_dev$msmwma(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_wma"]], flags flags[open_flags], mode const[0]) fd_msmwma
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmwma, cmd const[AUDIO_START], arg ptr[])
+ioctl$AUDIO_GET_WMA_CONFIG_V2(fd fd_msmwma, cmd const[AUDIO_GET_WMA_CONFIG_V2], arg ptr[out, msm_audio_wma_config_v2])
+ioctl$AUDIO_SET_WMA_CONFIG_V2(fd fd_msmwma, cmd const[AUDIO_SET_WMA_CONFIG_V2], arg ptr[in, msm_audio_wma_config_v2])
+
+
+#include/uapi/linux/msm_audio_wma.h
+
+msm_audio_wma_config_v2 {
+	format_tag int16
+	numchannels int16
+	samplingrate    int32
+	avgbytespersecond   int32
+	block_align int16
+	validbitspersample  int16
+	channelmask int32
+	encodeopt   int16
+}
+

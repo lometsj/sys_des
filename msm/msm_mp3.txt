@@ -1,0 +1,7 @@
+#msm_mp3
+#drivers/misc/qcom/qdsp6v2/audio_mp3.c
+
+resource fd_msmmp3[fd]
+openat$msmmp3(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_mp3"]], flags flags[open_flags], mode const[0]) fd_msmmp3
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_msmmp3, cmd const[AUDIO_START])

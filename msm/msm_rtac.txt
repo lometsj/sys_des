@@ -1,0 +1,108 @@
+#msm_rtac
+#sound/soc/msm/qdsp6v2/rtac.c
+
+resource fd_msmrtac[fd]
+openat$msmrtac(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_rtac"]], flags flags[open_flags], mode const[0]) fd_msmrtac
+#rtac_ioctl
+#rtac_ioctl_shared
+ioctl$AUDIO_GET_RTAC_ADM_INFO(fd fd_msmrtac, cmd const[AUDIO_GET_RTAC_ADM_INFO], arg ptr[out, rtac_adm_data])
+ioctl$AUDIO_GET_RTAC_VOICE_INFO(fd fd_msmrtac, cmd const[AUDIO_GET_RTAC_VOICE_INFO], arg ptr[out, rtac_voice])
+ioctl$AUDIO_GET_RTAC_ADM_CAL(fd fd_msmrtac, cmd const[AUDIO_GET_RTAC_ADM_CAL], arg ptr[in, int32])
+ioctl$AUDIO_SET_RTAC_ADM_CAL(fd fd_msmrtac, cmd const[AUDIO_SET_RTAC_ADM_CAL], arg ptr[in, array])
+ioctl$AUDIO_GET_RTAC_ASM_CAL(fd fd_msmrtac, cmd const[AUDIO_GET_RTAC_ASM_CAL], arg ptr[out, int32])
+ioctl$AUDIO_SET_RTAC_ASM_CAL(fd fd_msmrtac, cmd const[AUDIO_SET_RTAC_ASM_CAL], arg ptr[in, array])
+ioctl$AUDIO_GET_RTAC_CVS_CAL(fd fd_msmrtac, cmd const[AUDIO_GET_RTAC_CVS_CAL], arg ptr[out, int32])
+ioctl$AUDIO_SET_RTAC_CVS_CAL(fd fd_msmrtac, cmd const[AUDIO_SET_RTAC_CVS_CAL], arg ptr[in, array])
+ioctl$AUDIO_GET_RTAC_CVP_CAL(fd fd_msmrtac, cmd const[AUDIO_GET_RTAC_CVP_CAL], arg ptr[out, int32])
+ioctl$AUDIO_SET_RTAC_CVP_CAL(fd fd_msmrtac, cmd const[AUDIO_SET_RTAC_CVP_CAL], arg ptr[in, array])
+ioctl$AUDIO_GET_RTAC_AFE_CAL(fd fd_msmrtac, cmd const[AUDIO_GET_RTAC_AFE_CAL], arg ptr[out, rtac_afe_user_data])
+ioctl$AUDIO_SET_RTAC_AFE_CAL(fd fd_msmrtac, cmd const[AUDIO_SET_RTAC_AFE_CAL], arg ptr[in, rtac_afe_user_data])
+
+#include/linux/qdsp6v2/rtac.h
+
+rtac_popp_data {
+	popp    int32
+	popp_topology   int32
+	app_type    int32
+}
+
+rtac_adm_data {
+	topology_id int32
+	afe_topology    int32
+	afe_port    int32
+	copp    int32
+	num_of_popp int32
+	app_type    int32
+	acdb_dev_id int32
+	popp	array[rtac_popp_data, RTAC_MAX_ACTIVE_POPP]
+}
+
+define RTAC_MAX_ACTIVE_POPP		8
+
+rtac_adm {
+	num_of_dev  int32
+	device	array[rtac_adm_data, RTAC_MAX_ACTIVE_DEVICES]
+}
+
+definde RTAC_MAX_ACTIVE_DEVICES	4
+
+rtac_voice_data_t {
+	tx_topology_id	int32
+	rx_topology_id	int32
+	tx_afe_topology	int32
+	rx_afe_topology	int32
+	tx_afe_port	int32
+	rx_afe_port	int32
+	cvs_handle	int32
+	cvp_handle	int32
+	tx_acdb_id	int32
+	rx_acdb_id	int32
+}
+
+struct rtac_voice {
+	num_of_voice_combos	int32
+	voice	array[rtac_voice_data_t, RTAC_MAX_ACTIVE_VOICE_COMBOS]
+}
+define RTAC_MAX_ACTIVE_VOICE_COMBOS	2
+
+#AUDIO_GET_RTAC_AFE_CAL
+#AUDIO_SET_RTAC_AFE_CAL
+
+rtac_afe_user_data {
+	buf_size	int32
+	cmd_size	int32
+	port_id	int32
+	[
+		rtac_afe_set	rtac_afe_set
+		rtac_afe_get	rtac_afe_get		
+	]
+}	[packed]
+
+
+rtac_afe_set {
+	cmd	afe_port_cmd_set_param_v2
+	data	afe_port_param_data_v2
+}
+
+rtac_afe_get {
+	cmd afe_port_cmd_get_param_v2 
+	data	afe_port_param_data_v2
+}
+
+struct afe_port_param_data_v2 {
+	module_id	int32
+
+	param_id	int32
+	param_size	int16
+	reserved	int16
+
+} [packed]
+
+struct afe_port_cmd_set_param_v2 {
+	port_id	int16
+	payload_size	int16
+	payload_address_lsw	int16
+	payload_address_msw	int32
+	mem_map_handle	int32
+
+} [packed]
