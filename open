@@ -1,0 +1,334 @@
+open /dev/0:0:0:0
+fd = 3
+open /dev/0:0:0:1
+fd = 3
+open /dev/0:0:0:2
+fd = 3
+open /dev/0:0:0:3
+fd = 3
+open /dev/0:0:0:4
+fd = 3
+open /dev/0:0:0:49456
+fd = 3
+open /dev/0:0:0:49476
+fd = 3
+open /dev/0:0:0:49488
+fd = 3
+open /dev/0:0:0:5
+fd = 3
+open /dev/adsprpc-smd
+fd = -1
+open /dev/android_mbim
+fd = -1
+open /dev/android_rndis_qc
+fd = -1
+open /dev/apr_apps2
+fd = -1
+open /dev/ashmem
+fd = 3
+Alarm clock
+Alarm clock
+Alarm clock
+open /dev/avtimer
+fd = -1
+open /dev/binder
+fd = 3
+open /dev/ccid_bulk
+fd = -1
+open /dev/ccid_ctrl
+fd = -1
+open /dev/console
+fd = -1
+open /dev/cpu_dma_latency
+fd = 3
+open /dev/device-mapper
+fd = 3
+open /dev/diag
+fd = 3
+open /dev/dpl_ctrl
+fd = 3
+open /dev/full
+fd = 3
+open /dev/fuse
+fd = 3
+Alarm clock
+Alarm clock
+open /dev/htc-acoustic
+fd = 3
+open /dev/hw_random
+fd = -1
+open /dev/hwbinder
+fd = 3
+open /dev/i2c-12
+fd = 3
+open /dev/i2c-3
+fd = 3
+open /dev/i2c-7
+fd = 3
+open /dev/i2c-8
+fd = 3
+open /dev/i2c-9
+fd = 3
+open /dev/icesdcc
+fd = 3
+open /dev/iceufs
+fd = 3
+open /dev/iio:device0
+fd = 3
+open /dev/ion
+fd = 3
+open /dev/ipa
+fd = 3
+open /dev/ipaNatTable
+fd = 3
+open /dev/ipa_tethering_bridge
+fd = 3
+open /dev/jpeg0
+fd = 3
+open /dev/jpeg2
+fd = 3
+open /dev/jpeg3
+fd = 3
+open /dev/keychord
+fd = 3
+open /dev/kgsl-3d0
+fd = -1
+open /dev/kmsg
+fd = 3
+open /dev/laser_stmvl53l0
+fd = 3
+open /dev/loop-control
+fd = 3
+open /dev/mdss_rotator
+fd = 3
+open /dev/media0
+fd = 3
+open /dev/memory_bandwidth
+fd = 3
+open /dev/msm-rng
+fd = 3
+open /dev/msm_aac
+fd = -1
+open /dev/msm_aac_in
+fd = -1
+open /dev/msm_alac
+fd = -1
+open /dev/msm_amrnb
+fd = -1
+open /dev/msm_amrnb_in
+fd = -1
+open /dev/msm_amrwb
+fd = -1
+open /dev/msm_amrwb_in
+fd = -1
+open /dev/msm_amrwbplus
+fd = -1
+open /dev/msm_ape
+fd = -1
+open /dev/msm_audio_cal
+fd = 3
+open /dev/msm_evrc
+fd = -1
+open /dev/msm_evrc_in
+fd = -1
+open /dev/msm_g711alaw_in
+fd = -1
+open /dev/msm_g711mlaw_in
+fd = -1
+open /dev/msm_hweffects
+fd = -1
+open /dev/msm_mp3
+fd = -1
+open /dev/msm_multi_aac
+fd = -1
+open /dev/msm_qcelp
+fd = -1
+open /dev/msm_qcelp_in
+fd = -1
+open /dev/msm_rtac
+fd = 3
+open /dev/msm_sps
+fd = -1
+open /dev/msm_thermal_query
+fd = 3
+open /dev/msm_wma
+fd = -1
+open /dev/msm_wmapro
+fd = -1
+open /dev/mtp_usb
+fd = -1
+open /dev/nanohub
+fd = 3
+open /dev/nanohub_comms
+fd = 3
+open /dev/network_latency
+fd = 3
+open /dev/network_throughput
+fd = 3
+open /dev/null
+fd = 3
+open /dev/pmsg0
+fd = 3
+open /dev/pn551
+fd = 3
+open /dev/ppp
+fd = 3
+open /dev/ptmx
+fd = 3
+open /dev/qce
+fd = 3
+open /dev/qseecom
+fd = 3
+open /dev/ramdump_AR6320
+fd = 3
+open /dev/ramdump_a530_zap_signed
+fd = 3
+open /dev/ramdump_adsp
+fd = 3
+open /dev/ramdump_adsp_rh
+fd = 3
+open /dev/ramdump_modem
+fd = 3
+open /dev/ramdump_slpi
+fd = 3
+open /dev/ramdump_smem
+fd = 3
+open /dev/ramdump_venus
+fd = 3
+open /dev/random
+fd = 3
+open /dev/rfkill
+fd = 3
+open /dev/rmnet_ctrl
+fd = 3
+open /dev/rmnet_ctrl1
+fd = 3
+open /dev/rmnet_ctrl2
+fd = 3
+open /dev/rmnet_ctrl3
+fd = 3
+open /dev/rtc0
+fd = 3
+open /dev/sdsprpc-smd
+fd = -1
+open /dev/sensors
+fd = 3
+open /dev/sg0
+fd = 3
+open /dev/sg1
+fd = 3
+open /dev/sg2
+fd = 3
+open /dev/sg3
+fd = 3
+open /dev/sg4
+fd = 3
+open /dev/sg5
+fd = 3
+open /dev/sg6
+fd = 3
+open /dev/sg7
+fd = 3
+open /dev/sg8
+fd = 3
+open /dev/smd11
+fd = -1
+open /dev/smd21
+fd = -1
+open /dev/smd22
+fd = -1
+Alarm clock
+open /dev/smd7
+fd = -1
+open /dev/smd8
+fd = -1
+Alarm clock
+open /dev/smdcntl0
+fd = -1
+open /dev/smdcntl8
+fd = -1
+open /dev/subsys_AR6320
+fd = 3
+open /dev/subsys_a530_zap_signed
+fd = -1
+open /dev/subsys_adsp
+fd = -1
+open /dev/subsys_modem
+fd = -1
+open /dev/subsys_slpi
+fd = -1
+open /dev/subsys_venus
+fd = -1
+open /dev/tty
+fd = -1
+open /dev/ttyHS0
+fd = 3
+open /dev/tun
+fd = 3
+open /dev/uhid
+fd = 3
+open /dev/uinput
+fd = 3
+open /dev/uio0
+fd = 3
+open /dev/uio1
+fd = 3
+open /dev/uio2
+fd = 3
+open /dev/urandom
+fd = 3
+open /dev/usb_accessory
+fd = 3
+open /dev/v4l-subdev0
+fd = 3
+open /dev/v4l-subdev1
+fd = 3
+open /dev/v4l-subdev10
+fd = 3
+open /dev/v4l-subdev11
+fd = 3
+open /dev/v4l-subdev12
+fd = 3
+open /dev/v4l-subdev13
+fd = 3
+open /dev/v4l-subdev14
+fd = 3
+open /dev/v4l-subdev15
+fd = 3
+open /dev/v4l-subdev16
+fd = 3
+open /dev/v4l-subdev17
+fd = 3
+open /dev/v4l-subdev2
+fd = 3
+open /dev/v4l-subdev3
+fd = 3
+open /dev/v4l-subdev4
+fd = 3
+open /dev/v4l-subdev5
+fd = 3
+open /dev/v4l-subdev6
+fd = 3
+open /dev/v4l-subdev7
+fd = 3
+open /dev/v4l-subdev8
+fd = 3
+open /dev/v4l-subdev9
+fd = 3
+open /dev/video0
+fd = 3
+open /dev/video1
+fd = 3
+open /dev/video32
+fd = -1
+open /dev/video33
+fd = -1
+open /dev/vndbinder
+fd = 3
+open /dev/wwan_ioctl
+fd = 3
+open /dev/xt_qtaguid
+fd = 3
+open /dev/zero
+fd = 3
+
