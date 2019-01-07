@@ -1,0 +1,9 @@
+#aac
+#/Users/lometsj/Documents/msm/drivers/misc/qcom/qdsp6v2/audio_aac.c
+
+resource fd_aac[fd]
+syz_open_dev$aac(dev ptr[in, string["/dev/aac"]], id intptr, flags flags[open_flags]) fd_aac
+#audio_ioctl
+ioctl$AUDIO_START(fd fd_aac, cmd const[AUDIO_START], arg ptr[])
+ioctl$AUDIO_GET_AAC_CONFIG(fd fd_aac, cmd const[AUDIO_GET_AAC_CONFIG], arg ptr[])
+ioctl$AUDIO_SET_AAC_CONFIG(fd fd_aac, cmd const[AUDIO_SET_AAC_CONFIG], arg ptr[])

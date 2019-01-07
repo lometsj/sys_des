@@ -1,0 +1,38 @@
+#u_ctrl_qit
+#/Users/lometsj/Documents/msm/drivers/usb/gadget/function/u_ctrl_qti.c
+
+resource fd_uctrlqit[fd]
+syz_open_dev$uctrlqit(dev ptr[in, string["/dev/u_ctrl_qit"]], id intptr, flags flags[open_flags]) fd_uctrlqit
+#qti_ctrl_ioctl
+ioctl$QTI_CTRL_MODEM_OFFLINE(fd fd_uctrlqit, cmd const[QTI_CTRL_MODEM_OFFLINE])
+ioctl$QTI_CTRL_MODEM_ONLINE(fd fd_uctrlqit, cmd const[QTI_CTRL_MODEM_ONLINE])
+ioctl$QTI_CTRL_GET_LINE_STATE(fd fd_uctrlqit, cmd const[QTI_CTRL_GET_LINE_STATE], arg ptr[out, int32])
+ioctl$QTI_CTRL_EP_LOOKUP(fd fd_uctrlqit, cmd const[QTI_CTRL_EP_LOOKUP], arg ptr[out, ep_info])
+
+
+#include/upai/linux/usb/usb_ctrl_qti.h
+
+peripheral_ep_type [
+	DATA_EP_TYPE_RESERVED   const[0x0, int32]
+	DATA_EP_TYPE_HSIC   const[0x1, int32]
+	DATA_EP_TYPE_HSUSB  const[0x2, int32]
+	DATA_EP_TYPE_PCIE   const[0x3, int32]
+	DATA_EP_TYPE_EMBEDDED   const[0x4, int32]
+	DATA_EP_TYPE_BAM_DMUX   const[0x5, int32]
+]
+
+struct peripheral_ep_info {
+	ep_type peripheral_ep_type
+	peripheral_iface_id int32
+}
+
+ipa_ep_pair {
+	cons_pipe_num   int32
+	prod_pipe_num   int32
+}
+
+ep_info {
+	ph_ep_info  peripheral_ep_info
+	ipa_ep_pair ipa_ep_pair
+
+}

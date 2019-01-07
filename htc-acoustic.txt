@@ -1,0 +1,13 @@
+#htc-acoustic
+#/Users/lometsj/Documents/msm/sound/soc/msm/htc_acoustic_alsa.c
+
+resource fd_htc-acoustic[fd]
+syz_open_dev$htc-acoustic(dev ptr[in, string["/dev/htc-acoustic"]], id intptr, flags flags[open_flags]) fd_htc-acoustic
+#acoustic_ioctl
+ioctl$ACOUSTIC_GET_HW_COMPONENT(fd fd_htc-acoustic, cmd const[ACOUSTIC_GET_HW_COMPONENT], arg ptr[in, string])
+ioctl$ACOUSTIC_UPDATE_BEATS_STATUS(fd fd_htc-acoustic, cmd const[ACOUSTIC_UPDATE_BEATS_STATUS], arg ptr[in, int32])
+ioctl$ACOUSTIC_UPDATE_DQ_STATUS(fd fd_htc-acoustic, cmd const[ACOUSTIC_UPDATE_DQ_STATUS], arg ptr[in, int32])
+ioctl$ACOUSTIC_NOTIFIY_FM_SSR(fd fd_htc-acoustic, cmd const[ACOUSTIC_NOTIFIY_FM_SSR], arg ptr[in, int32])
+ioctl$ACOUSTIC_CONTROL_WAKELOCK(fd fd_htc-acoustic, cmd const[ACOUSTIC_CONTROL_WAKELOCK], arg ptr[in, int32])
+ioctl$ ACOUSTIC_ADSP_CMD(fd fd_htc-acoustic, cmd const[ ACOUSTIC_ADSP_CMD], arg ptr[in, int32])
+ioctl$ ACOUSTIC_GET_TFA_VER(fd fd_htc-acoustic, cmd const[ ACOUSTIC_GET_TFA_VER], arg ptr[in, string])

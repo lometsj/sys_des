@@ -1,0 +1,25 @@
+#ashmem
+#/Users/lometsj/Documents/msm/drivers/staging/android/ashmem.c
+
+resource fd_ashmem[fd]
+syz_open_dev$ashmem(dev ptr[in, string["/dev/ashmem"]], id intptr, flags flags[open_flags]) fd_ashmem
+#ashmem_ioctl
+ioctl$ASHMEM_SET_NAME(fd fd_ashmem, cmd const[ASHMEM_SET_NAME], arg ptr[in, string])
+ioctl$ASHMEM_GET_NAME(fd fd_ashmem, cmd const[ASHMEM_GET_NAME], arg ptr[out, string])
+ioctl$ASHMEM_SET_SIZE(fd fd_ashmem, cmd const[ASHMEM_SET_SIZE], arg ptr[in, len])
+ioctl$ASHMEM_GET_SIZE(fd fd_ashmem, cmd const[ASHMEM_GET_SIZE], arg ptr[out, len])
+ioctl$ASHMEM_SET_PROT_MASK(fd fd_ashmem, cmd const[ASHMEM_SET_PROT_MASK], arg ptr[in, int64])
+ioctl$ASHMEM_GET_PROT_MASK(fd fd_ashmem, cmd const[ASHMEM_GET_PROT_MASK], arg ptr[out, int64])
+ioctl$ASHMEM_PIN(fd fd_ashmem, cmd const[ASHMEM_PIN], arg ptr[in, ashmem_pin])
+ioctl$ASHMEM_UNPIN(fd fd_ashmem, cmd const[ASHMEM_UNPIN], arg ptr[in, ashmem_pin])
+ioctl$ASHMEM_GET_PIN_STATUS(fd fd_ashmem, cmd const[ASHMEM_GET_PIN_STATUS], arg ptr[in, ashmem_pin])
+ioctl$ASHMEM_PURGE_ALL_CACHES(fd fd_ashmem, cmd const[ASHMEM_PURGE_ALL_CACHES])
+
+
+#include/uapi/linux/ashmem.h
+
+ashmem_pin {
+	offset  int32
+	len     int32
+}
+

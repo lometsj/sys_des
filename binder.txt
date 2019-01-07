@@ -1,0 +1,34 @@
+#binder
+#/Users/lometsj/Documents/msm/drivers/staging/android/binder.c
+
+resource fd_binder[fd]
+syz_open_dev$binder(dev ptr[in, string["/dev/binder"]], id intptr, flags flags[open_flags]) fd_binder
+#binder_ioctl
+ioctl$BINDER_WRITE_READ(fd fd_binder, cmd const[BINDER_WRITE_READ], arg ptr[in, binder_write_read])
+ioctl$BINDER_SET_MAX_THREADS(fd fd_binder, cmd const[BINDER_SET_MAX_THREADS], arg ptr[in, int32])
+ioctl$BINDER_SET_CONTEXT_MGR(fd fd_binder, cmd const[BINDER_SET_CONTEXT_MGR])
+ioctl$BINDER_THREAD_EXIT(fd fd_binder, cmd const[BINDER_THREAD_EXIT])
+ioctl$BINDER_VERSION(fd fd_binder, cmd const[BINDER_VERSION], arg ptr[out, binder_version])
+ioctl$BINDER_GET_NODE_DEBUG_INFO(fd fd_binder, cmd const[BINDER_GET_NODE_DEBUG_INFO], arg ptr[out, binder_node_debug_info])
+
+#include/uapi/linux/binder.h
+
+binder_write_read {
+	write_size  int64
+	write_consumed  int64
+	write_buffer    int64
+	read_size   int64
+	read_consumed   int64
+	read_buffer int64
+}
+
+binder_version {
+	protocol_version    int32
+}
+
+binder_node_debug_info {
+	ptr int64
+	cookie  int64
+	has_strong_ref  int32
+	has_weak_ref    int32
+}
