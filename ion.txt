@@ -1,0 +1,16 @@
+#ion
+#/Users/lometsj/Documents/msm/drivers/staging/android/ion/ion.c
+
+resource fd_ion[fd]
+syz_open_dev$ion(dev ptr[in, string["/dev/ion"]], id intptr, flags flags[open_flags]) fd_ion
+#ion_ioctl
+ioctl$ION_IOC_ALLOC(fd fd_ion, cmd const[ION_IOC_ALLOC], arg ptr[])
+ioctl$ION_IOC_FREE(fd fd_ion, cmd const[ION_IOC_FREE], arg ptr[])
+ioctl$ION_IOC_SHARE(fd fd_ion, cmd const[ION_IOC_SHARE], arg ptr[])
+ioctl$ION_IOC_MAP(fd fd_ion, cmd const[ION_IOC_MAP], arg ptr[])
+ioctl$ION_IOC_IMPORT(fd fd_ion, cmd const[ION_IOC_IMPORT], arg ptr[])
+ioctl$ION_IOC_SYNC(fd fd_ion, cmd const[ION_IOC_SYNC], arg ptr[])
+ioctl$ION_IOC_CUSTOM(fd fd_ion, cmd const[ION_IOC_CUSTOM], arg ptr[])
+ioctl$ION_IOC_CLEAN_CACHES(fd fd_ion, cmd const[ION_IOC_CLEAN_CACHES], arg ptr[])
+ioctl$ION_IOC_INV_CACHES(fd fd_ion, cmd const[ION_IOC_INV_CACHES], arg ptr[])
+ioctl$ION_IOC_CLEAN_INV_CACHES(fd fd_ion, cmd const[ION_IOC_CLEAN_INV_CACHES], arg ptr[])
