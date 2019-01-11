@@ -1,0 +1,120 @@
+#qcedev
+#/msm/drivers/crypto/msm/qcedev.c
+
+resource fd_qcedev[fd]
+syz_open_dev$qcedev(dev ptr[in, string["/dev/qcedev"]], id intptr, flags flags[open_flags]) fd_qcedev
+#qcedev_ioctl
+ioctl$QCEDEV_IOCTL_ENC_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_ENC_REQ], arg ptr[inout, qcedev_cipher_op_req])
+ioctl$QCEDEV_IOCTL_DEC_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_DEC_REQ], arg ptr[inout, qcedev_cipher_op_req])
+ioctl$QCEDEV_IOCTL_SHA_INIT_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_SHA_INIT_REQ], arg ptr[inout, qcedev_sha_op_req])
+ioctl$QCEDEV_IOCTL_GET_CMAC_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_GET_CMAC_REQ])
+ioctl$QCEDEV_IOCTL_SHA_UPDATE_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_SHA_UPDATE_REQ], arg ptr[inout, qcedev_sha_op_req])
+ioctl$QCEDEV_IOCTL_SHA_FINAL_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_SHA_FINAL_REQ], arg ptr[inout, qcedev_sha_op_req])
+ioctl$QCEDEV_IOCTL_GET_SHA_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_GET_SHA_REQ], arg ptr[inout, qcedev_sha_op_req])
+
+#/include/uapi/linux/qcedev.h
+
+define QCEDEV_MAX_SHA_DIGEST    32
+define QCEDEV_MAX_BUFFERS       16
+define QCEDEV_MAX_IV_SIZE 64
+define QCEDEV_MAX_IV_SIZE 32
+
+qcedev_sha_op_req {
+	data    array[buf_info, QCEDEV_MAX_BUFFERS];
+	entries int32
+	data_len    int32
+	digest  array[int8, QCEDEV_MAX_SHA_DIGEST];
+	diglen  int32
+	authkey ptr[inout, int8]
+	authklen    int32
+    alg flags[qcedev_sha_alg_enum, int32]
+}
+
+qcedev_sha_alg_enum = 0, 1, 2, 3, 4, 5
+
+#enum qcedev_sha_alg_enum {
+#	QCEDEV_ALG_SHA1		= 0,
+#	QCEDEV_ALG_SHA256	= 1,
+#	QCEDEV_ALG_SHA1_HMAC	= 2,
+#	QCEDEV_ALG_SHA256_HMAC	= 3,
+#	QCEDEV_ALG_AES_CMAC	= 4,
+#	QCEDEV_ALG_SHA_ALG_LAST
+#};
+
+qcedev_cipher_op_req {
+	use_pmem    int8
+	union qcedev_cipher_op_req_union
+	entries int32
+	data_len    int32
+	in_place_op int8
+	enckey  array[int8, QCEDEV_MAX_KEY_SIZE]
+	encklen int32
+	iv  array[int8, QCEDEV_MAX_IV_SIZE]
+	ivlen   int32
+	byteoffset  int32
+	alg flags[qcedev_cipher_alg_enum, int32]
+	mode    flags[qcedev_cipher_mode_enum, int32]
+	op  flags[qcedev_oper_enum, int32]
+}
+
+
+#enum qcedev_cipher_mode_enum {
+#	QCEDEV_AES_MODE_CBC	= 0,
+#	QCEDEV_AES_MODE_ECB	= 1,
+#	QCEDEV_AES_MODE_CTR	= 2,
+#	QCEDEV_AES_MODE_XTS	= 3,
+#	QCEDEV_AES_MODE_CCM	= 4,
+#	QCEDEV_DES_MODE_CBC	= 5,
+#	QCEDEV_DES_MODE_ECB	= 6,
+#	QCEDEV_AES_DES_MODE_LAST
+#};
+
+v4l2_subdev_format_whence = 0,1,2,3,4,5,6,7
+
+
+#enum qcedev_cipher_alg_enum {
+#	QCEDEV_ALG_DES		= 0,
+#	QCEDEV_ALG_3DES		= 1,
+#	QCEDEV_ALG_AES		= 2,
+#	QCEDEV_ALG_LAST
+#};
+
+qcedev_cipher_alg_enum = 0,1,2,3
+
+
+#enum qcedev_oper_enum {
+#	QCEDEV_OPER_DEC		= 0,
+#	QCEDEV_OPER_ENC		= 1,
+#	QCEDEV_OPER_DEC_NO_KEY	= 2,
+#	QCEDEV_OPER_ENC_NO_KEY	= 3,
+#	QCEDEV_OPER_LAST
+#};
+
+qcedev_oper_enum = 0, 1, 2, 3, 4
+
+qcedev_cipher_op_req_union [
+    pmem qcedev_pmem_info
+    vbuf qcedev_vbuf_info
+]
+
+qcedev_vbuf_info {
+    src array[buf_info, QCEDEV_MAX_BUFFERS]
+    dst array[buf_info, QCEDEV_MAX_BUFFERS]
+}
+
+qcedev_pmem_info {
+	fd_src  int32
+    src array[buf_info, QCEDEV_MAX_BUFFERS]
+	fd_dst  int32
+	dst array[buf_info, QCEDEV_MAX_BUFFERS]
+}
+
+buf_info {
+	union buf_info_union
+	len int32
+}
+
+buf_info_union [
+    offset  int32
+    vaddr   ptr[inout, int8]
+]
