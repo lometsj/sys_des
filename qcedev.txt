@@ -2,7 +2,8 @@
 #/msm/drivers/crypto/msm/qcedev.c
 
 resource fd_qcedev[fd]
-syz_open_dev$qcedev(dev ptr[in, string["/dev/qcedev"]], id intptr, flags flags[open_flags]) fd_qcedev
+openat$qcedev(fd const[AT_FDCWD], dev ptr[in, string["/dev/qce"]], flags flags[open_flags], mode const[0]) fd_qcedev
+#syz_open_dev$qcedev(dev ptr[in, string["/dev/qcedev"]], id intptr, flags flags[open_flags]) fd_qcedev
 #qcedev_ioctl
 ioctl$QCEDEV_IOCTL_ENC_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_ENC_REQ], arg ptr[inout, qcedev_cipher_op_req])
 ioctl$QCEDEV_IOCTL_DEC_REQ(fd fd_qcedev, cmd const[QCEDEV_IOCTL_DEC_REQ], arg ptr[inout, qcedev_cipher_op_req])
