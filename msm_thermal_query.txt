@@ -1,0 +1,47 @@
+#msm_thermal_query
+#../msm/drivers/thermal/msm_thermal-dev.c
+
+resource fd_msmthermalquery[fd]
+openat$msmthermalquery(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_thermal_query"]], flags flags[open_flags], mode const[0]) fd_msmthermalquery
+#syz_open_dev$msmthermalquery(dev ptr[in, string["/dev/msm_thermal_query"]], id intptr, flags flags[open_flags]) fd_msmthermalquery
+#msm_thermal_ioctl_process
+ioctl$MSM_THERMAL_SET_CPU_MAX_FREQUENCY(fd fd_msmthermalquery, cmd const[MSM_THERMAL_SET_CPU_MAX_FREQUENCY], arg ptr[in, msm_thermal_ioctl])
+ioctl$MSM_THERMAL_SET_CPU_MIN_FREQUENCY(fd fd_msmthermalquery, cmd const[MSM_THERMAL_SET_CPU_MIN_FREQUENCY], arg ptr[in, msm_thermal_ioctl])
+ioctl$MSM_THERMAL_SET_CLUSTER_MAX_FREQUENCY(fd fd_msmthermalquery, cmd const[MSM_THERMAL_SET_CLUSTER_MAX_FREQUENCY], arg ptr[in, msm_thermal_ioctl])
+ioctl$MSM_THERMAL_SET_CLUSTER_MIN_FREQUENCY(fd fd_msmthermalquery, cmd const[MSM_THERMAL_SET_CLUSTER_MIN_FREQUENCY], arg ptr[in, msm_thermal_ioctl])
+ioctl$MSM_THERMAL_GET_CLUSTER_FREQUENCY_PLAN(fd fd_msmthermalquery, cmd const[MSM_THERMAL_GET_CLUSTER_FREQUENCY_PLAN], arg ptr[inout, msm_thermal_ioctl])
+ioctl$MSM_THERMAL_GET_CLUSTER_VOLTAGE_PLAN(fd fd_msmthermalquery, cmd const[MSM_THERMAL_GET_CLUSTER_VOLTAGE_PLAN], arg ptr[inout, msm_thermal_ioctl])
+
+
+msm_thermal_ioctl {
+    size    int32
+    union   msm_thermal_ioctl_union
+}[packed]
+
+msm_thermal_ioctl_union [
+    cpu_freq    cpu_freq_arg
+    clock_freq  clock_plan_arg
+    voltage     voltage_plan_arg 
+]
+
+cpu_freq_arg {
+    cpu_num int32
+    freq_req    int32
+}[packed]
+
+define MSM_IOCTL_FREQ_SIZE 16
+
+clock_plan_arg {
+    cluster_num int32
+    freq_table_len  int32
+    set_idx int32
+    freq_table  array[int32, MSM_IOCTL_FREQ_SIZE]
+}[packed]
+
+voltage_plan_arg {
+    cluster_num int32
+    voltage_table_len   int32
+    set_idx int32
+    voltage_table   array[int32, MSM_IOCTL_FREQ_SIZE]
+}[packed]
+

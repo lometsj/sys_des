@@ -1,0 +1,68 @@
+#adsprpc_smd
+#../msm/drivers/char/adsprpc.c
+
+resource fd_adsprpcsmd[fd]
+openat$adsprpcsmd(fd const[AT_FDCWD], dev ptr[in, string["/dev/adsprpc-smd"]], flags flags[open_flags], mode const[0]) fd_adsprpcsmd
+#syz_open_dev$adsprpcsmd(dev ptr[in, string["/dev/adsprpc_smd"]], id intptr, flags flags[open_flags]) fd_adsprpcsmd
+#fastrpc_device_ioctl
+ioctl$FASTRPC_IOCTL_INVOKE_FD(fd fd_adsprpcsmd, cmd const[FASTRPC_IOCTL_INVOKE_FD], arg ptr[in, fastrpc_ioctl_invoke_fd])
+ioctl$FASTRPC_IOCTL_INVOKE(fd fd_adsprpcsmd, cmd const[FASTRPC_IOCTL_INVOKE], arg ptr[in, fastrpc_ioctl_invoke])
+ioctl$FASTRPC_IOCTL_MMAP(fd fd_adsprpcsmd, cmd const[FASTRPC_IOCTL_MMAP], arg ptr[inout, fastrpc_ioctl_mmap])
+ioctl$FASTRPC_IOCTL_MUNMAP(fd fd_adsprpcsmd, cmd const[FASTRPC_IOCTL_MUNMAP], arg ptr[in, fastrpc_ioctl_munmap])
+
+ioctl$FASTRPC_IOCTL_SETMODE(fd fd_adsprpcsmd, cmd const[FASTRPC_IOCTL_SETMODE], arg ptr[in, flags[adsprpc_mode, int32]])
+#ioctl$FASTRPC_MODE_PARALLEL(fd fd_adsprpcsmd, cmd const[FASTRPC_MODE_PARALLEL], arg ptr[])
+#ioctl$FASTRPC_MODE_SERIAL(fd fd_adsprpcsmd, cmd const[FASTRPC_MODE_SERIAL], arg ptr[])
+
+ioctl$FASTRPC_IOCTL_INIT(fd fd_adsprpcsmd, cmd const[FASTRPC_IOCTL_INIT], arg ptr[in, astrpc_ioctl_init])
+
+#drivers/char/adsprpc_shared.h
+
+fastrpc_ioctl_invoke_fd {
+	inv fastrpc_ioctl_invoke
+    fds ptr[inout, int32]		
+}
+
+fastrpc_ioctl_invoke {
+    handle  int32
+    sc  int32
+    ptr [inout, remote_arg_t]
+}
+
+remote_arg [
+	buf remote_buf
+	h   int32
+]
+
+remote_buf {
+    ptr[inout, string]
+	len int64
+}
+
+fastrpc_ioctl_mmap {
+	fd  int32
+	flags   int32
+	vaddrin int64	
+	size    int64			
+	vaddrout    int64
+}
+
+fastrpc_ioctl_munmap {
+	vaddrout    int64
+	size    int64
+}
+
+astrpc_ioctl_init {
+	flags   int32
+	file    int64
+	filelen int32
+	filefd  int32
+	mem int64		
+	memlen  int32
+	memfd   int32
+}
+
+define FASTRPC_MODE_PARALLEL    0
+define FASTRPC_MODE_SERIAL      1
+
+adsprpc_mode = FASTRPC_MODE_PARALLEL, FASTRPC_MODE_SERIAL

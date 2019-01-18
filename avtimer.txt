@@ -1,0 +1,8 @@
+#avtimer
+#../msm/drivers/platform/msm/avtimer.c
+
+resource fd_avtimer[fd]
+openat$avtimer(fd const[AT_FDCWD], dev ptr[in, string["/dev/avtimer"]], flags flags[open_flags], mode const[0]) fd_avtimer
+#syz_open_dev$avtimer(dev ptr[in, string["/dev/avtimer"]], id intptr, flags flags[open_flags]) fd_avtimer
+#avtimer_ioctl
+ioctl$IOCTL_GET_AVTIMER_TICK(fd fd_avtimer, cmd const[IOCTL_GET_AVTIMER_TICK], arg ptr[out, int64])

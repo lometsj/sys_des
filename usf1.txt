@@ -1,0 +1,131 @@
+#usf1
+#../msm/drivers/misc/qcom/qdsp6v2/ultrasound/usf.c
+
+resource fd_usf1[fd]
+syz_open_dev$usf1(dev ptr[in, string["/dev/usf1"]], id intptr, flags flags[open_flags]) fd_usf1
+#usf_ioctl
+ioctl$US_START_TX(fd fd_usf1, cmd const[US_START_TX])
+ioctl$US_START_RX(fd fd_usf1, cmd const[US_START_RX])
+ioctl$US_SET_TX_INFO(fd fd_usf1, cmd const[US_SET_TX_INFO], arg ptr[in, us_tx_info_type])
+ioctl$US_SET_RX_INFO(fd fd_usf1, cmd const[US_SET_RX_INFO], arg ptr[in, us_rx_info_type])
+ioctl$US_GET_TX_UPDATE(fd fd_usf1, cmd const[US_GET_TX_UPDATE], arg ptr[inout, us_tx_update_info_type])
+ioctl$US_SET_RX_UPDATE(fd fd_usf1, cmd const[US_SET_RX_UPDATE], arg ptr[inout, us_rx_update_info_type])
+ioctl$US_STOP_TX(fd fd_usf1, cmd const[US_STOP_TX])
+ioctl$US_STOP_RX(fd fd_usf1, cmd const[US_STOP_RX])
+ioctl$US_SET_DETECTION(fd fd_usf1, cmd const[US_SET_DETECTION], arg ptr[inout, us_detect_info_type])
+ioctl$US_GET_VERSION(fd fd_usf1, cmd const[US_GET_VERSION], arg ptr[inout, us_version_info_type])
+ioctl$US_SET_TX_STREAM_PARAM(fd fd_usf1, cmd const[US_SET_TX_STREAM_PARAM], arg ptr[in, us_stream_param_type])
+ioctl$US_GET_TX_STREAM_PARAM(fd fd_usf1, cmd const[US_GET_TX_STREAM_PARAM], arg ptr[inout, us_stream_param_type])
+ioctl$US_SET_RX_STREAM_PARAM(fd fd_usf1, cmd const[US_SET_RX_STREAM_PARAM], arg ptr[in, us_stream_param_type])
+ioctl$US_GET_RX_STREAM_PARAM(fd fd_usf1, cmd const[US_GET_RX_STREAM_PARAM], arg ptr[inout, us_stream_param_type])
+
+us_stream_param_type {
+    module_id   int32
+    param_id    int32
+    buf_size    int32
+    pbuf        ptr[inout, int8]
+}
+
+us_version_info_type {
+    buf_size    int16
+    pbuf    ptr[inout, string]
+}
+
+us_detect_place_enum = 0, 1
+us_detect_mode_enum = 0, 1, 2
+
+us_detect_info_type {
+    us_detector     flags[us_detect_place_enum, int32]
+    us_detect_mode  flags[us_detect_mode_enum, int32]
+    skip_time   int32
+    params_data_size    int16
+    params_data     ptr[inout, int8]
+    detect_timeout  int32
+    is_us   int8[0:1]
+}
+
+us_rx_update_info_type {
+    ready_region    int32
+    params_data_size    int16
+    params_data     ptr[inout, int8]
+    free_region     int32
+}
+
+key_event_type {
+    key int32
+    key_state   int8
+}
+
+mouse_event_type {
+    rels    array[int32, COORDINATES_DIM]
+    buttons_states  int16
+}
+
+point_event_type {
+    coordinates array[int32, COORDINATES_DIM]
+    inclinations    array[int32, TILTS_DIM]
+    pressure    int32
+    buttons_state_bitmap    int16
+}
+
+usf_event_type_union [
+    point_event point_event_type
+    mouse_event mouse_event_type
+    key_event   key_event_type
+]
+
+usf_event_type {
+    seq_num int32
+    timestamp   int32
+    event_type_ind  int16
+    event_data  usf_event_type_union
+}
+
+us_tx_update_info_type {
+    event_counter   int16
+    event   ptr[inout, usf_event_type]
+    free_region int32
+    timeout     int32
+    event_filters   int16
+    params_data_size    int16
+    params_data     ptr[inout, int8]
+    ready_region    int32
+}
+
+us_rx_info_type {
+    us_xx_info  us_xx_info_type
+}
+
+define USF_MAX_PORT_NUM 8
+us_xx_info_type {
+    client  ptr[in, string]
+    dev_id  int32
+    stream_format   int32
+    sample_rate     int32
+    buf_size        int32
+    buf_num         int16
+    port_cnt        int16
+    port_id         array[int8, USF_MAX_PORT_NUM]
+    bits_per_sample int16
+    params_data_size int16
+    params_data     ptr[in, int8]
+    max_get_set_param_buf_size  int32
+}
+
+define MIN_MAX_DIM 2
+us_input_info_type {
+    tsc_x_dim       array[int32, MIN_MAX_DIM]
+    tsc_y_dim       array[int32, MIN_MAX_DIM]
+    tsc_z_dim       array[int32, MIN_MAX_DIM]
+    tsc_x_tilt      array[int32, MIN_MAX_DIM]
+    tsc_y_tilt      array[int32, MIN_MAX_DIM]
+    tsc_pressure    array[int32, MIN_MAX_DIM]
+    req_buttons_bitmap  int16
+    event_types         int16
+    conflicting_event_types int16
+}
+
+us_tx_info_type {
+    us_xx_info  us_xx_info_type
+    input_info  us_input_info_type
+}

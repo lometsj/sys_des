@@ -1,0 +1,84 @@
+#laser_stmvl53l0
+#../msm/drivers/input/misc/vl53L0/stmvl53l0_module.c
+
+resource fd_laserstmvl53l0[fd]
+openat$laserstmvl53l0(fd const[AT_FDCWD], dev ptr[in, string["/dev/laser_stmvl53l0"]], flags flags[open_flags], mode const[0]) fd_laserstmvl53l0
+#syz_open_dev$laserstmvl53l0(dev ptr[in, string["/dev/laser_stmvl53l0"]], id intptr, flags flags[open_flags]) fd_laserstmvl53l0
+#stmvl53l0_ioctl_handler
+ioctl$VL53L0_IOCTL_INIT(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_INIT])
+ioctl$VL53L0_IOCTL_XTALKCALB(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_XTALKCALB], arg ptr[in, int32])
+ioctl$VL53L0_IOCTL_SETXTALK(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_SETXTALK], arg ptr[in, int32])
+ioctl$VL53L0_IOCTL_OFFCALB(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_OFFCALB], arg ptr[in, int32])
+ioctl$VL53L0_IOCTL_SETOFFSET(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_SETOFFSET], arg ptr[in, int8])
+ioctl$VL53L0_IOCTL_ACTIVATE_USE_CASE(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_ACTIVATE_USE_CASE], arg ptr[in, flags[useCase_flags, int8] ])
+ioctl$VL53L0_IOCTL_ACTIVATE_CUSTOM_USE_CASE(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_ACTIVATE_CUSTOM_USE_CASE], arg ptr[in, stmvl53l0_custom_use_case])
+ioctl$VL53L0_IOCTL_STOP(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_STOP])
+ioctl$VL53L0_IOCTL_GETDATAS(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_GETDATAS], arg ptr[out, VL53L0_RangingMeasurementData_t])
+ioctl$VL53L0_IOCTL_REGISTER(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_REGISTER], arg ptr[inout, stmvl53l0_register])
+ioctl$VL53L0_IOCTL_PARAMETER(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_PARAMETER], arg ptr[inout, stmvl53l0_parameter])
+ioctl$VL53L0_IOCTL_GET_DATA(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_GET_DATA], arg ptr[out, VL53L0_RangingMeasurementData_t])
+ioctl$VL53L0_IOCTL_OFFSET_CALI(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_OFFSET_CALI], arg ptr[out, int32])
+ioctl$VL53L0_IOCTL_XTALK_CALI(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_XTALK_CALI], arg ptr[out, int32])
+ioctl$VL53L0_IOCTL_SET_XTALK_CALI_DISTANCE(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_SET_XTALK_CALI_DISTANCE], arg ptr[in, int32])
+ioctl$VL53L0_IOCTL_REF_SPAD_CALI(fd fd_laserstmvl53l0, cmd const[VL53L0_IOCTL_REF_SPAD_CALI], arg ptr[out, int32])
+
+#drivers/input/misc/vl53L0/stmvl53l0.h
+
+stmvl53l0_custom_use_case {
+    signalRateLimit int32
+    sigmaLimit  int32
+    preRangePulsePeriod int32
+    finalRangePulsePeriod   int32
+    timingBudget    int32
+}
+
+VL53L0_RangingMeasurementData_t {
+    TimeStamp   int32
+    MeasurementTimeUsec int32
+    RangeMilliMeter int16
+    RangeDMaxMilliMeter int16
+    SignalRateRtnMegaCps    int32
+    AmbientRateRtnMegaCps   int32
+    EffectiveSpadRtnCount   int16
+    ZoneId  int8
+    RangeFractionalPart int8
+    RangeStatus int8
+}
+
+stmvl53l0_register {
+	is_read int32
+	reg_index   int32
+    reg_bytes   flags[reg_bytes_flag, int32]
+	reg_data    int32
+	status  int32
+}
+
+reg_bytes_flag = 1, 2, 3, 4
+
+stmvl53l0_parameter {
+	is_read int32
+    name flags[parameter_name_e, int32]
+	value   int32
+	value2  int32
+	status  int32
+}
+parameter_name_e = 0, 1, 2, 3, 4, 5, 6, 7, 8, 9
+#typedef enum {
+#	OFFSET_PAR = 0,
+#	XTALKRATE_PAR = 1,
+#	XTALKENABLE_PAR = 2,
+#	GPIOFUNC_PAR = 3,
+#	LOWTHRESH_PAR = 4,
+#	HIGHTHRESH_PAR = 5,
+#	DEVICEMODE_PAR = 6,
+#	INTERMEASUREMENT_PAR = 7,
+#	REFERENCESPADS_PAR = 8,
+#	REFCALIBRATION_PAR = 9,
+#} parameter_name_e;
+
+define USE_CASE_LONG_DISTANCE   1
+define USE_CASE_HIGH_ACCURACY   2
+define USE_CASE_HIGH_SPEED      3
+define USE_CASE_CUSTOM          4
+
+useCase_flags = USE_CASE_LONG_DISTANCE, USE_CASE_HIGH_ACCURACY, USE_CASE_HIGH_SPEED

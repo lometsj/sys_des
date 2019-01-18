@@ -1,0 +1,414 @@
+#kgsl-3d0
+#/msm/drivers/gpu/msm/kgsl_ioctl.c
+
+resource fd_kgsl3d0[fd]
+openat$kgsl3d0(fd const[AT_FDCWD], dev ptr[in, string["/dev/kgsl-3d0"]], flags flags[open_flags], mode const[0]) fd_kgsl3d0
+#syz_open_dev$msmrng(dev ptr[in, string["/dev/msm_rng"]], id intptr, flags flags[open_flags]) fd_msmrng
+#kgsl_ioctl_funcs
+
+ioctl$IOCTL_KGSL_DEVICE_GETPROPERTY(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_DEVICE_GETPROPERTY], arg ptr[inout, kgsl_device_getproperty])
+ioctl$IOCTL_KGSL_DEVICE_WAITTIMESTAMP_CTXTID(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_DEVICE_WAITTIMESTAMP_CTXTID], arg ptr[inout, kgsl_device_waittimestamp_ctxtid])
+ioctl$IOCTL_KGSL_RINGBUFFER_ISSUEIBCMDS(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_RINGBUFFER_ISSUEIBCMDS], arg ptr[inout, kgsl_ringbuffer_issueibcmds])
+ioctl$IOCTL_KGSL_SUBMIT_COMMANDS(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SUBMIT_COMMANDS], arg ptr[inout, kgsl_submit_commands])
+ioctl$IOCTL_KGSL_CMDSTREAM_READTIMESTAMP_CTXTID(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_CMDSTREAM_READTIMESTAMP_CTXTID], arg ptr[inout, kgsl_cmdstream_readtimestamp_ctxtid])
+ioctl$IOCTL_KGSL_CMDSTREAM_FREEMEMONTIMESTAMP_CTXTID(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_CMDSTREAM_FREEMEMONTIMESTAMP_CTXTID], arg ptr[in, kgsl_cmdstream_freememontimestamp_ctxtid])
+ioctl$IOCTL_KGSL_DRAWCTXT_CREATE(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_DRAWCTXT_CREATE], arg ptr[inout, kgsl_drawctxt_create])
+ioctl$IOCTL_KGSL_DRAWCTXT_DESTROY(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_DRAWCTXT_DESTROY], arg ptr[in, kgsl_drawctxt_destroy])
+ioctl$IOCTL_KGSL_MAP_USER_MEM(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_MAP_USER_MEM], arg ptr[inout, kgsl_map_user_mem])
+#? kgsl_sharedmem_from_pmem
+ioctl$IOCTL_KGSL_SHAREDMEM_FROM_PMEM(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SHAREDMEM_FROM_PMEM], arg ptr[inout, kgsl_map_user_mem])
+ioctl$IOCTL_KGSL_SHAREDMEM_FREE(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SHAREDMEM_FREE], arg ptr[in, kgsl_sharedmem_free])
+ioctl$IOCTL_KGSL_SHAREDMEM_FLUSH_CACHE(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SHAREDMEM_FLUSH_CACHE], arg ptr[in, kgsl_sharedmem_free])
+ioctl$IOCTL_KGSL_GPUMEM_ALLOC(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUMEM_ALLOC], arg ptr[inout, kgsl_gpumem_alloc])
+ioctl$IOCTL_KGSL_CFF_SYNCMEM(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_CFF_SYNCMEM], arg ptr[in, kgsl_cff_syncmem])
+ioctl$IOCTL_KGSL_CFF_USER_EVENT(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_CFF_USER_EVENT], arg ptr[in, kgsl_cff_user_event])
+ioctl$IOCTL_KGSL_TIMESTAMP_EVENT(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_TIMESTAMP_EVENT], arg ptr[inout, kgsl_timestamp_event])
+ioctl$IOCTL_KGSL_SETPROPERTY(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SETPROPERTY], arg ptr[in, kgsl_device_setproperty])
+ioctl$IOCTL_KGSL_GPUMEM_ALLOC_ID(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUMEM_ALLOC_ID], arg ptr[inout, kgsl_gpumem_alloc_id])
+ioctl$IOCTL_KGSL_GPUMEM_FREE_ID(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUMEM_FREE_ID], arg ptr[inout, kgsl_gpumem_free_id])
+ioctl$IOCTL_KGSL_GPUMEM_GET_INFO(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUMEM_GET_INFO], arg ptr[inout, kgsl_gpumem_get_info])
+ioctl$IOCTL_KGSL_GPUMEM_SYNC_CACHE(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUMEM_SYNC_CACHE], arg ptr[in, kgsl_gpumem_sync_cache])
+ioctl$IOCTL_KGSL_GPUMEM_SYNC_CACHE_BULK(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUMEM_SYNC_CACHE_BULK], arg ptr[inout, kgsl_gpumem_sync_cache_bulk])
+ioctl$IOCTL_KGSL_SYNCSOURCE_CREATE(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SYNCSOURCE_CREATE], arg ptr[inout, kgsl_syncsource_create])
+ioctl$IOCTL_KGSL_SYNCSOURCE_DESTROY(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SYNCSOURCE_DESTROY], arg ptr[inout, kgsl_syncsource_destroy])
+ioctl$IOCTL_KGSL_SYNCSOURCE_CREATE_FENCE(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SYNCSOURCE_CREATE_FENCE], arg ptr[inout, kgsl_syncsource_create_fence])
+ioctl$IOCTL_KGSL_SYNCSOURCE_SIGNAL_FENCE(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_SYNCSOURCE_SIGNAL_FENCE], arg ptr[inout, kgsl_syncsource_signal_fence])
+ioctl$IOCTL_KGSL_CFF_SYNC_GPUOBJ(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_CFF_SYNC_GPUOBJ], arg ptr[in, kgsl_cff_sync_gpuobj])
+ioctl$IOCTL_KGSL_GPUOBJ_ALLOC(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUOBJ_ALLOC], arg ptr[inout, kgsl_gpuobj_alloc])
+ioctl$IOCTL_KGSL_GPUOBJ_FREE(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUOBJ_FREE], arg ptr[in, kgsl_gpuobj_free])
+ioctl$IOCTL_KGSL_GPUOBJ_INFO(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUOBJ_INFO], arg ptr[inout, kgsl_gpuobj_info])
+ioctl$IOCTL_KGSL_GPUOBJ_IMPORT(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUOBJ_IMPORT], arg ptr[inout, kgsl_gpuobj_import])
+ioctl$IOCTL_KGSL_GPUOBJ_SYNC(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUOBJ_SYNC], arg ptr[in, kgsl_gpuobj_sync])
+ioctl$IOCTL_KGSL_GPU_COMMAND(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPU_COMMAND], arg ptr[inout, kgsl_gpu_command])
+ioctl$IOCTL_KGSL_GPUOBJ_SET_INFO(fd fd_kgsl3d0, cmd const[IOCTL_KGSL_GPUOBJ_SET_INFO], arg ptr[in, kgsl_gpuobj_set_info])
+
+define KGSL_GPUOBJ_SET_INFO_METADATA (1 << 0)
+define KGSL_GPUOBJ_SET_INFO_TYPE (1 << 1)
+kgsl_gpuobj_set_info_flag = KGSL_GPUOBJ_SET_INFO_METADATA, KGSL_GPUOBJ_SET_INFO_TYPE
+kgsl_gpuobj_set_info {
+    flags           flags[kgsl_gpuobj_set_info_flag, int64]
+    metadata        int64
+    id              int32
+    metadata_len    int32
+    type            int32
+}
+
+kgsl_gpu_command_flag = KGSL_CMDBATCH_CTX_SWITCH, KGSL_CMDBATCH_MARKER, KGSL_CMDBATCH_END_OF_FRAME, KGSL_CMDBATCH_SYNC, KGSL_CMDBATCH_PWR_CONSTRAINT, KGSL_CMDBATCH_MEMLIST, KGSL_CMDBATCH_PROFILING, KGSL_CMDBATCH_PROFILING_KTIME
+
+kgsl_gpu_command {
+    flags   flags[kgsl_gpu_command_flag, int64]
+    cmdlist int32
+    numcmds int32
+    objlist int64
+    objsize int32
+    numobjs int32
+    synclist    int64
+    syncsize    int32
+    numsyncs    int32
+    context_id  int32
+    timestamp   int32
+}
+
+kgsl_gpuobj_sync {
+    objs    int64
+    obj_len int32
+    count   int32
+}
+
+#kgsl.c 2273 col
+kgsl_gpumem_import_type = 2, 3
+kgsl_gpumem_import_flag = KGSL_MEMFLAGS_GPUREADONLY, KGSL_MEMTYPE_MASK, KGSL_MEMALIGN_MASK, KGSL_MEMFLAGS_USE_CPU_MAP, KGSL_MEMFLAGS_SECURE, KGSL_MEMFLAGS_FORCE_32BIT
+
+kgsl_gpuobj_import {
+    priv        int64
+    priv_len    int64
+    flags       flags[kgsl_gpumem_import_flag, int64]
+    type        flags[kgsl_gpumem_import_type, int32]
+    id          int32
+}
+
+kgsl_gpuobj_info {
+    gpuaddr int64
+    flags   int64
+    size    int64
+    va_len  int64
+    va_addr int64
+    id      int32
+}
+
+define KGSL_GPUOBJ_FREE_ON_EVENT 1
+kgsl_gpuobj_free_flag = KGSL_GPUOBJ_FREE_ON_EVENT
+kgsl_gpuobj_free {
+    flags   flags[kgsl_gpuobj_free_flag, int64]
+    priv    int64
+    id      int32
+    type    int32
+    len     int32
+}
+
+kgsl_gpuobj_alloc {
+    size    int64
+    flags   flags[kgsl_gpumem_alloc_flag, int64]
+    va_len  int64
+    mmapsize    int64
+    id      int32
+    metadata_len    int32
+    metadata    int64
+}
+
+kgsl_cff_sync_gpuobj {
+    offset  int64
+    length  int64
+    id      int32
+}
+
+kgsl_syncsource_signal_fence {
+    id          int32
+    fence_fd    int32
+    __pad       array[int32, 4]
+}
+
+kgsl_syncsource_create_fence {
+    id          int32
+    fence_fd    int32
+    __pad       array[int32, 4]
+}
+
+kgsl_syncsource_destroy {
+    id      int32
+    __pad   array[int32, 3]
+}
+
+kgsl_syncsource_create {
+    id      int32
+    __pad   array[int32, 3]
+}
+
+kgsl_gpumem_sync_cache_bulk {
+    list    ptr[inout, int32]
+    count   int32
+    op      flags[kgsl_gpumem_sync_cache_op, int32]
+    __pad   array[int32, 2]
+}
+
+define KGSL_GPUMEM_CACHE_CLEAN (1 << 0)
+define KGSL_GPUMEM_CACHE_INV (1 << 1)
+define KGSL_GPUMEM_CACHE_FLUSH (KGSL_GPUMEM_CACHE_CLEAN | KGSL_GPUMEM_CACHE_INV)
+    
+kgsl_gpumem_sync_cache_op = KGSL_GPUMEM_CACHE_FLUSH, KGSL_GPUMEM_CACHE_CLEAN, KGSL_GPUMEM_CACHE_INV
+
+
+kgsl_gpumem_sync_cache {
+    gpuaddr int64
+    id  int32
+    op  flags[kgsl_gpumem_sync_cache_op, int32]
+    offset  int64
+    length  int64
+}
+
+kgsl_gpumem_get_info {
+    gpuaddr int64
+    id      int64
+    flags   int32
+    size    int64
+    mmapsize    int64
+    useraddr    int64
+    __pad       array[int64, 4]
+};
+
+kgsl_gpumem_free_id {
+    id      int32
+    __pad   int32
+}
+
+kgsl_gpumem_alloc_id {
+    id  int32
+    flags   flags[kgsl_gpumem_alloc_flag, int32]
+    size    int64
+    mmapsize    int64
+    gpuaddr     int64
+	__pad       array[int64, 2]
+	unsigned long __pad[2];
+}
+
+define KGSL_PROP_PWRCTRL		0xE
+define KGSL_PROP_PWR_CONSTRAINT	0x12
+kgsl_device_getproperty_type = KGSL_PROP_PWRCTRL, KGSL_PROP_PWR_CONSTRAINT
+
+#kgsl_device_getproperty
+kgsl_device_setproperty {
+    type    flags[kgsl_device_getproperty_type, int32]
+    value   buffer[inout]
+    sizebytes   int64
+}
+
+define KGSL_TIMESTAMP_EVENT_FENCE 2
+
+kgsl_timestamp_event_type = KGSL_TIMESTAMP_EVENT_FENCE
+
+kgsl_timestamp_event {
+    type        flags[kgsl_timestamp_event_type, int32]
+    timestamp   int32
+    context_id  int32
+    priv        buffer[inout]
+    len         int64
+}
+
+
+define CFF_OP_WRITE_MEM        0x0000000b
+define CFF_OP_WRITE_REG        0x00000002
+define CFF_OP_POLL_REG         0x00000004
+define CFF_OP_WAIT_IRQ         0x00000005
+define CFF_OP_MEMORY_BASE	0x0000000d
+define CFF_OP_HANG		0x0000000e
+define CFF_OP_EOF              0xffffffff
+define CFF_OP_WRITE_SURFACE_PARAMS 0x00000011
+define CFF_OP_VERIFY_MEM_FILE  0x00000007
+
+opcode = CFF_OP_WRITE_MEM, CFF_OP_WRITE_REG, CFF_OP_POLL_REG, CFF_OP_WAIT_IRQ, CFF_OP_MEMORY_BASE, CFF_OP_HANG, CFF_OP_EOF, CFF_OP_WRITE_SURFACE_PARAMS, CFF_OP_VERIFY_MEM_FILE
+
+kgsl_cff_user_event {
+    cff_opcode  flags[opcode, int8]
+    op1         int32
+    op2         int32
+    op3         int32
+    op4         int32
+    op5         int32
+    __pad       array[int32, 2]
+}
+
+kgsl_cff_syncmem {
+    gpuaddr int64
+    len     int64
+    __pad   array[int32, 2]
+};
+
+define KGSL_MEMFLAGS_GPUREADONLY 0x01000000U
+define KGSL_CACHEMODE_MASK 0x0C000000U
+define KGSL_MEMTYPE_MASK 0x0000FF00
+define KGSL_MEMALIGN_MASK 0x00FF0000
+define KGSL_MEMFLAGS_USE_CPU_MAP 0x10000000ULL
+define KGSL_MEMFLAGS_SECURE 0x00000008ULL
+define KGSL_MEMFLAGS_FORCE_32BIT 0x100000000ULL
+
+kgsl_gpumem_alloc_flag = KGSL_MEMFLAGS_GPUREADONLY, KGSL_CACHEMODE_MASK, KGSL_MEMTYPE_MASK, KGSL_MEMALIGN_MASK, KGSL_MEMFLAGS_USE_CPU_MAP, KGSL_MEMFLAGS_SECURE, KGSL_MEMFLAGS_FORCE_32BIT
+
+kgsl_gpumem_alloc {
+    gpuaddr int64
+    size    int64
+    flags   flags[kgsl_gpumem_alloc_flag, int32]
+}
+
+kgsl_sharedmem_free {
+    gpuaddr int64
+}
+
+kgsl_user_mem_flag = KGSL_MEMFLAGS_SECURE, KGSL_MEMFLAGS_USE_CPU_MAP
+
+kgsl_map_user_mem {
+    fd      int32
+    gpuaddr int32
+    len     int64
+    offset  int64
+    hostptr int64
+    memtype flags[kgsl_user_mem_type, int32]
+    flags   flags[, int32]
+}
+
+#case KGSL_MEM_ENTRY_USER:
+#case KGSL_MEM_ENTRY_ION:
+#default:
+kgsl_user_mem_type = 2 ,3
+
+define KGSL_MEMFLAGS_GPUREADONLY 0x01000000U
+define KGSL_MEMTYPE_MASK 0x0000FF00
+define KGSL_MEMALIGN_MASK 0x00FF0000
+define KGSL_MEMFLAGS_USE_CPU_MAP 0x10000000ULL
+define KGSL_MEMFLAGS_SECURE 0x00000008ULL
+define KGSL_MEMFLAGS_FORCE_32BIT 0x100000000ULL
+
+kgsl_map_user_mem_flag = KGSL_MEMFLAGS_GPUREADONLY, KGSL_MEMTYPE_MASK, KGSL_MEMALIGN_MASK, KGSL_MEMFLAGS_USE_CPU_MAP, KGSL_MEMFLAGS_SECURE, KGSL_MEMFLAGS_FORCE_32BIT
+
+kgsl_drawctxt_destroy {
+    drawctxt_id int32
+}
+
+kgsl_drawctxt_create {
+    flags       flags[kdsl_drawctxt_create_flag, int32]
+    drawctxt_id int32
+}
+define KGSL_CONTEXT_PREAMBLE 0x00000010
+define KGSL_CONTEXT_NO_GMEM_ALLOC 0x00000002
+define KGSL_CONTEXT_PER_CONTEXT_TS 0x00000040
+define KGSL_CONTEXT_USER_GENERATED_TS 0x00000080
+define KGSL_CONTEXT_NO_FAULT_TOLERANCE 0x00000200
+define KGSL_CONTEXT_CTX_SWITCH 0x00000008
+define KGSL_CONTEXT_PRIORITY_MASK 0x0000F000
+define KGSL_CONTEXT_TYPE_MASK 0x01F00000
+define KGSL_CONTEXT_PWR_CONSTRAINT 0x00000800
+define KGSL_CONTEXT_IFH_NOP 0x00010000
+define KGSL_CONTEXT_SECURE 0x00020000
+define KGSL_CONTEXT_PREEMPT_STYLE_MASK 0x0E000000
+define KGSL_CONTEXT_NO_SNAPSHOT 0x00040000
+
+kdsl_drawctxt_create_flag = KGSL_CONTEXT_PREAMBLE, KGSL_CONTEXT_NO_GMEM_ALLOC, KGSL_CONTEXT_PER_CONTEXT_TS, KGSL_CONTEXT_USER_GENERATED_TS, KGSL_CONTEXT_NO_FAULT_TOLERANCE, KGSL_CONTEXT_CTX_SWITCH, KGSL_CONTEXT_PRIORITY_MASK, KGSL_CONTEXT_TYPE_MASK, KGSL_CONTEXT_PWR_CONSTRAINT, KGSL_CONTEXT_IFH_NOP, KGSL_CONTEXT_SECURE, KGSL_CONTEXT_PREEMPT_STYLE_MASK, KGSL_CONTEXT_NO_SNAPSHOT
+
+kgsl_cmdstream_freememontimestamp_ctxtid {
+    context_id  int32
+    gpuaddr     int64
+    type        flags[kgsl_timestamp_type, int32]
+    timestamp   int32
+}
+
+#enum kgsl_timestamp_type {
+#	KGSL_TIMESTAMP_CONSUMED = 0x00000001, /* start-of-pipeline timestamp */
+#	KGSL_TIMESTAMP_RETIRED  = 0x00000002, /* end-of-pipeline timestamp*/
+#	KGSL_TIMESTAMP_QUEUED   = 0x00000003,
+#};
+
+kgsl_timestamp_type = 1, 2, 3
+
+kgsl_cmdstream_readtimestamp_ctxtid {
+    context_id  int32
+    type        flags[kgsl_timestamp_type, int32]
+    timestamp   int32
+}
+
+kgsl_ibdesc {
+    gpuaddr int64
+    __pad   int64
+    sizedwords  int64
+    ctrl    int64
+}
+
+kgsl_cmd_syncpoint {
+    type    int32
+    priv    buffer[inout]
+    size    int64
+}
+
+
+kgsl_submit_commands {
+    context_id  int32
+    flags       flags[kgsl_cmdbatch, int32]
+    cmdlist     kgsl_ibdesc
+    numcmds     int32
+    synclist    kgsl_cmd_syncpoint
+    numsyncs    int32
+    timestamp   int32
+    __pad       array[int32, 4]
+}
+
+define KGSL_CMDBATCH_MEMLIST		0x00000001
+define KGSL_CMDBATCH_MARKER		0x00000002
+define KGSL_CMDBATCH_SUBMIT_IB_LIST	0x004 
+define KGSL_CMDBATCH_CTX_SWITCH	0x008
+define KGSL_CMDBATCH_PROFILING		0x00000010
+
+define KGSL_CMDBATCH_PROFILING_KTIME	0x00000020
+define KGSL_CMDBATCH_END_OF_FRAME	0x100
+define KGSL_CMDBATCH_SYNC		0x400
+define KGSL_CMDBATCH_PWR_CONSTRAINT	0x800
+
+kgsl_cmdbatch = KGSL_CMDBATCH_MEMLIST, KGSL_CMDBATCH_MARKER, KGSL_CMDBATCH_SUBMIT_IB_LIST, KGSL_CMDBATCH_CTX_SWITCH, KGSL_CMDBATCH_PROFILING, KGSL_CMDBATCH_PROFILING_KTIME, KGSL_CMDBATCH_END_OF_FRAME, KGSL_CMDBATCH_SYNC, KGSL_CMDBATCH_PWR_CONSTRAINT
+
+kgsl_ringbuffer_issueibcmds {
+    drawctxt_id int32
+    ibdesc_addr int64
+    numibs      int32
+    timestamp   int32
+    flags       flags[kgsl_cmdbatch, int32]
+}
+
+define KGSL_PROP_DEVICE_INFO		0x1
+define KGSL_PROP_DEVICE_SHADOW		0x2
+define KGSL_PROP_DEVICE_POWER		0x3
+define KGSL_PROP_SHMEM			0x4
+define KGSL_PROP_SHMEM_APERTURES	0x5
+define KGSL_PROP_MMU_ENABLE		0x6
+define KGSL_PROP_INTERRUPT_WAITS	0x7
+define KGSL_PROP_VERSION		0x8
+define KGSL_PROP_GPU_RESET_STAT	0x9
+define KGSL_PROP_PWRCTRL		0xE
+define KGSL_PROP_PWR_CONSTRAINT	0x12
+define KGSL_PROP_UCHE_GMEM_VADDR	0x13
+define KGSL_PROP_SP_GENERIC_MEM	0x14
+define KGSL_PROP_UCODE_VERSION		0x15
+define KGSL_PROP_GPMU_VERSION		0x16
+define KGSL_PROP_HIGHEST_BANK_BIT	0x17
+define KGSL_PROP_DEVICE_BITNESS	0x18
+
+property_types = KGSL_PROP_DEVICE_INFO, KGSL_PROP_DEVICE_SHADOW, KGSL_PROP_DEVICE_POWER, KGSL_PROP_SHMEM, KGSL_PROP_SHMEM_APERTURES, KGSL_PROP_MMU_ENABLE, KGSL_PROP_INTERRUPT_WAITS, KGSL_PROP_VERSION, KGSL_PROP_PWR_CONSTRAINT, KGSL_PROP_UCHE_GMEM_VADDR, KGSL_PROP_SP_GENERIC_MEM, KGSL_PROP_UCODE_VERSION, KGSL_PROP_GPMU_VERSION, KGSL_PROP_HIGHEST_BANK_BIT, KGSL_PROP_DEVICE_BITNESS
+
+kgsl_device_getproperty {
+    type    flags[property_types, int32]
+    value   buffer[inout]
+    sizebytes   int64
+}
+
+kgsl_device_waittimestamp_ctxtid {
+    context_id  int32
+    timestamp   int32
+    timeout     int32
+}
+

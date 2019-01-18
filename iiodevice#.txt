@@ -1,0 +1,9 @@
+#iiodevice#
+#../msm/drivers/iio/industrialio-core.c
+
+resource fd_iiodevice[fd]
+openat$iiodevice(fd const[AT_FDCWD], dev ptr[in, string["/dev/iiodevice#"]], flags flags[open_flags], mode const[0]) fd_iiodevice
+#syz_open_dev$iiodevice#(dev ptr[in, string["/dev/iiodevice#"]], id intptr, flags flags[open_flags]) fd_iiodevice#
+#iio_ioctl
+
+ioctl$IIO_GET_EVENT_FD_IOCTL(fd fd_iiodevice#, cmd const[IIO_GET_EVENT_FD_IOCTL], arg ptr[out, int32])

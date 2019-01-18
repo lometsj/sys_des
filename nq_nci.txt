@@ -1,0 +1,12 @@
+#nq_nci
+#../msm/drivers/nfc/nq-nci.c
+
+resource fd_nqnci[fd]
+syz_open_dev$nqnci(dev ptr[in, string["/dev/nq-nci"]], id intptr, flags flags[open_flags]) fd_nqnci
+#nfc_ioctl
+ioctl$NFC_SET_PWR(fd fd_nqnci, cmd const[NFC_SET_PWR], arg ptr[in, int64])
+ioctl$ESE_SET_PWR(fd fd_nqnci, cmd const[ESE_SET_PWR], arg ptr[in, int64])
+ioctl$ESE_GET_PWR(fd fd_nqnci, cmd const[ESE_GET_PWR])
+ioctl$SET_RX_BLOCK(fd fd_nqnci, cmd const[SET_RX_BLOCK])
+ioctl$SET_EMULATOR_TEST_POINT(fd fd_nqnci, cmd const[SET_EMULATOR_TEST_POINT])
+ioctl$NFCC_INITIAL_CORE_RESET_NTF(fd fd_nqnci, cmd const[NFCC_INITIAL_CORE_RESET_NTF])

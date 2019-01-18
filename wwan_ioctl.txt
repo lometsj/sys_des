@@ -1,0 +1,239 @@
+#wwan_ioctl
+#../msm/drivers/platform/msm/ipa/ipa_v3/rmnet_ipa_fd_ioctl.c
+
+resource fd_wwanioctl[fd]
+syz_open_dev$wwanioctl(dev ptr[in, string["/dev/wwan_ioctl"]], id intptr, flags flags[open_flags]) fd_wwanioctl
+#ipa3_wan_ioctl
+ioctl$WAN_IOC_ADD_FLT_RULE(fd fd_wwanioctl, cmd const[WAN_IOC_ADD_FLT_RULE], arg ptr[inout, ipa_install_fltr_rule_req_msg_v01])
+ioctl$WAN_IOC_ADD_FLT_RULE_INDEX(fd fd_wwanioctl, cmd const[WAN_IOC_ADD_FLT_RULE_INDEX], arg ptr[inout, ipa_fltr_installed_notif_req_msg_v01])
+ioctl$WAN_IOC_VOTE_FOR_BW_MBPS(fd fd_wwanioctl, cmd const[WAN_IOC_VOTE_FOR_BW_MBPS], arg ptr[inout, int32])
+ioctl$WAN_IOC_POLL_TETHERING_STATS(fd fd_wwanioctl, cmd const[WAN_IOC_POLL_TETHERING_STATS], arg ptr[inout, wan_ioctl_poll_tethering_stats])
+ioctl$WAN_IOC_SET_DATA_QUOTA(fd fd_wwanioctl, cmd const[WAN_IOC_SET_DATA_QUOTA], arg ptr[inout, wan_ioctl_set_data_quota])
+ioctl$WAN_IOC_SET_TETHER_CLIENT_PIPE(fd fd_wwanioctl, cmd const[WAN_IOC_SET_TETHER_CLIENT_PIPE], arg ptr[inout, wan_ioctl_set_tether_client_pipe])
+ioctl$WAN_IOC_QUERY_TETHER_STATS(fd fd_wwanioctl, cmd const[WAN_IOC_QUERY_TETHER_STATS], arg ptr[inout, wan_ioctl_query_tether_stats])
+ioctl$WAN_IOC_RESET_TETHER_STATS(fd fd_wwanioctl, cmd const[WAN_IOC_RESET_TETHER_STATS], arg ptr[inout, wan_ioctl_reset_tether_stats])
+
+wan_ioctl_reset_tether_stats {
+    upstreamIface   array[int8, IFNAMSIZ]
+    reset_stats     int8
+}
+
+#enum ipacm_client_enum {
+#	IPACM_CLIENT_USB = 1,
+#	IPACM_CLIENT_WLAN,
+#	IPACM_CLIENT_MAX
+#};
+ipacm_client_enum = 1, 2, 3
+
+wan_ioctl_query_tether_stats {
+    upstreamIface   array[int8, IFNAMSIZ]
+    tetherIface     array[int8, IFNAMSIZ]
+    ipa_client      flags[ipacm_client_enum, int32]
+    ipv4_tx_packets int64
+    ipv4_tx_bytes   int64
+    ipv4_rx_packets int64
+    ipv4_rx_bytes   int64
+    ipv6_tx_packets int64
+    ipv6_tx_bytes   int64
+    ipv6_rx_packets int64
+    ipv6_rx_bytes   int64
+
+
+
+wan_ioctl_set_tether_client_pipe {
+    ipa_client  flags[ipacm_client_enum, int32]
+    reset_client    int8
+    ul_src_pipe_len int32
+    ul_src_pipe_list    array[int32, QMI_IPA_MAX_PIPES_V01]
+    dl_dst_pipe_len
+    dl_dst_pipe_list    array[int32, QMI_IPA_MAX_PIPES_V01]
+}
+
+wan_ioctl_set_data_quota {
+    interface_name  array[int8, IFNAMSIZ]
+    quota_mbytes    int64
+    set_quota       int8
+}
+
+wan_ioctl_poll_tethering_stats {
+
+    polling_interval_secs   int64
+    reset_stats             int8
+}
+
+ipa_filter_handle_to_index_map_v01 {
+	filter_handle   int32
+	filter_index    int32
+}
+
+#enum ipa_qmi_result_type_v01 {
+#	/* To force a 32 bit signed enum. Do not change or use*/
+#	IPA_QMI_RESULT_TYPE_MIN_ENUM_VAL_V01 = IPA_INT_MIN,
+#	IPA_QMI_RESULT_SUCCESS_V01 = 0,
+#	IPA_QMI_RESULT_FAILURE_V01 = 1,
+#	IPA_QMI_RESULT_TYPE_MAX_ENUM_VAL_V01 = IPA_INT_MAX,
+#};
+ipa_qmi_result_type_v01 = 268435455, 0, 1, -268435456
+define QMI_IPA_MAX_FILTERS_V01 64
+
+ipa_fltr_installed_notif_req_msg_v01 {
+    source_pipe_index   int32
+    install_status  flags[ipa_qmi_result_type_v01, int32]
+    filter_index_list_len   int32
+    filter_index_list   array[ipa_filter_handle_to_index_map_v01, QMI_IPA_MAX_FILTERS_V01]
+    embedded_pipe_index_valid   int8
+    embedded_pipe_index int32
+    retain_header_valid int8
+    retain_header       int8
+    embedded_call_mux_id_valid  int8
+    embedded_call_mux_id    int32
+    num_ipv4_filters_valid  int8
+    num_ipv4_filters    int32
+    num_ipv6_filters_valid  int8
+    num_ipv6_filters    int32
+    start_ipv4_filter_idx_valid int8
+    start_ipv4_filter_idx   int32
+    start_ipv6_filter_idx_valid int8
+    start_ipv6_filter_idx   int32
+    rule_id_valid   int8
+    rule_id_len int32
+    rule_id     array[int32, QMI_IPA_MAX_FILTERS_V01];
+
+}
+
+#enum ipa_ip_type_enum_v01 {
+#	IPA_IP_TYPE_ENUM_MIN_ENUM_VAL_V01 = -2147483647,
+#	/* To force a 32 bit signed enum.  Do not change or use*/
+#	QMI_IPA_IP_TYPE_INVALID_V01 = 0,
+#	/*  Invalid IP type identifier */
+#	QMI_IPA_IP_TYPE_V4_V01 = 1,
+#	/*  IP V4 type */
+#	QMI_IPA_IP_TYPE_V6_V01 = 2,
+#	/*  IP V6 type */
+#	QMI_IPA_IP_TYPE_V4V6_V01 = 3,
+#	/*  Applies to both IP types */
+#	IPA_IP_TYPE_ENUM_MAX_ENUM_VAL_V01 = 2147483647
+#	/* To force a 32 bit signed enum.  Do not change or use*/
+#}
+ipa_ip_type_enum_v01 = -2147483647, 0, 1, 2, 3, 2147483647
+
+ipa_ipfltr_range_eq_16_type_v01 {
+	offset      int8
+	range_low   int16
+	range_high  int16
+}
+define QMI_IPA_IPFLTR_NUM_IHL_RANGE_16_EQNS_V01 2
+
+ipa_ipfltr_mask_eq_32_type_v01 {
+	offset  int8
+	mask    int32
+	value   int32
+}
+
+define QMI_IPA_IPFLTR_NUM_MEQ_32_EQNS_V01 2
+
+ipa_ipfltr_eq_16_type_v01 {
+    offset  int8
+    value   int16
+}
+
+ipa_ipfltr_eq_32_type_v01 {
+	offset  int8
+	value   int32
+}
+
+define QMI_IPA_IPFLTR_NUM_IHL_MEQ_32_EQNS_V01 2
+define QMI_IPA_IPFLTR_NUM_MEQ_128_EQNS_V01 2
+
+ipa_ipfltr_mask_eq_32_type_v01 {
+	offset  int8
+	mask    int32
+	value   int32
+}
+
+ipa_filter_rule_type_v01 {
+	rule_eq_bitmap  int16
+	tos_eq_present  int8
+	tos_eq          int8
+	protocol_eq_present int8
+	protocol_eq     int8
+	num_ihl_offset_range_16 int8
+    ihl_offset_range_16 array[ipa_ipfltr_range_eq_16_type_v01, QMI_IPA_IPFLTR_NUM_IHL_RANGE_16_EQNS_V01]
+	num_offset_meq_32   int8
+    offset_meq_128  array[ipa_ipfltr_mask_eq_32_type_v01, QMI_IPA_IPFLTR_NUM_MEQ_32_EQNS_V01]
+	tc_eq_present   int8
+	tc_eq           int8
+	flow_eq_present int8
+	flow_eq         int32
+	ihl_offset_eq_16_present    int8
+	ihl_offset_eq_16 ipa_ipfltr_eq_16_type_v01
+	ihl_offset_eq_32_present    int8
+	ihl_offset_eq_32 ipa_ipfltr_eq_32_type_v01
+	num_ihl_offset_meq_32   int8
+    ihl_offset_meq_32   array[ipa_ipfltr_mask_eq_32_type_v01, QMI_IPA_IPFLTR_NUM_IHL_MEQ_32_EQNS_V01]
+	num_offset_meq_128  int8
+    offset_meq_128      array[ipa_ipfltr_mask_eq_128_type_v01, QMI_IPA_IPFLTR_NUM_MEQ_128_EQNS_V01]
+	metadata_meq32_present  int8
+    metadata_meq32  ipa_ipfltr_mask_eq_32_type_v01
+	ipv4_frag_eq_present    int8
+}
+
+#enum ipa_filter_action_enum_v01 {
+#	IPA_FILTER_ACTION_ENUM_MIN_ENUM_VAL_V01 = -2147483647,
+#	/* To force a 32 bit signed enum. Do not change or use */
+#	QMI_IPA_FILTER_ACTION_INVALID_V01 = 0,
+#	/*  Invalid action on filter hit */
+#	QMI_IPA_FILTER_ACTION_SRC_NAT_V01 = 1,
+#	/*  Pass packet to NAT block for Source NAT */
+#	QMI_IPA_FILTER_ACTION_DST_NAT_V01 = 2,
+#	/*  Pass packet to NAT block for Destination NAT */
+#	QMI_IPA_FILTER_ACTION_ROUTING_V01 = 3,
+#	/*  Pass packet to Routing block */
+#	QMI_IPA_FILTER_ACTION_EXCEPTION_V01 = 4,
+#	/*  Treat packet as exception and send to exception pipe */
+#	IPA_FILTER_ACTION_ENUM_MAX_ENUM_VAL_V01 = 2147483647
+#	/* To force a 32 bit signed enum.  Do not change or use*/
+#};
+
+ipa_filter_action_enum_v01 = -2147483647, 0, 1, 2, 3, 4, 2147483647
+
+ipa_filter_spec_type_v01 {
+	filter_spec_identifier      int32
+    ip_type                     flags[ipa_ip_type_enum_v01, int32]
+	filter_rule                 ipa_filter_rule_type_v01
+	filter_action               flags[ipa_filter_action_enum_v01, int32]
+	is_routing_table_index_valid    int8
+	route_table_index           int32
+	is_mux_id_valid             int8
+	mux_id                      int32
+}
+
+ipa_filter_spec_ex_type_v01 {
+	ip_type flags[ipa_ip_type_enum_v01, int32] 
+	filter_rule ipa_filter_rule_type_v01 
+	filter_action    flags[ipa_filter_action_enum_v01, int32]
+	is_routing_table_index_valid    int8
+	route_table_index   int32
+	is_mux_id_valid int8
+	mux_id  int32
+	rule_id int32
+	is_rule_hashable    int8
+}
+
+ipa_install_fltr_rule_req_msg_v01 {
+    filter_spec_list_valid  int8
+    filter_spec_list_len    int32
+    filter_spec_list    array[ipa_filter_spec_type_v01, QMI_IPA_MAX_FILTERS_V01]
+    source_pipe_index_valid int8
+    source_pipe_index   int32
+    num_ipv4_filters_valid  int8
+    num_ipv4_filters    int32
+    num_ipv6_filters_valid  int8
+    num_ipv6_filters    int32
+    xlat_filter_indices_list_valid  int8
+    xlat_filter_indices_list_len    int32
+    xlat_filter_indices_list    array[int32, QMI_IPA_MAX_FILTERS_V01];
+    filter_spec_ex_list_valid   int8
+    filter_spec_ex_list_len int32
+    filter_spec_ex_list array[ipa_filter_spec_ex_type_v01, QMI_IPA_MAX_FILTERS_V01];
+}

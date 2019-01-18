@@ -1,0 +1,16 @@
+#spidev
+#../msm/drivers/spi/spidev.c
+
+resource fd_spidev[fd]
+syz_open_dev$spidev(dev ptr[in, string["/dev/spidev"]], id intptr, flags flags[open_flags]) fd_spidev
+#spidev_ioctl
+ioctl$SPI_IOC_RD_MODE(fd fd_spidev, cmd const[SPI_IOC_RD_MODE], arg ptr[out, int8])
+ioctl$SPI_IOC_RD_MODE32(fd fd_spidev, cmd const[SPI_IOC_RD_MODE32], arg ptr[out, int32])
+ioctl$SPI_IOC_RD_LSB_FIRST(fd fd_spidev, cmd const[SPI_IOC_RD_LSB_FIRST], arg ptr[out, int8])
+ioctl$SPI_IOC_RD_BITS_PER_WORD(fd fd_spidev, cmd const[SPI_IOC_RD_BITS_PER_WORD], arg ptr[out, int8])
+ioctl$SPI_IOC_RD_MAX_SPEED_HZ(fd fd_spidev, cmd const[SPI_IOC_RD_MAX_SPEED_HZ], arg ptr[out, int32])
+ioctl$SPI_IOC_WR_MODE(fd fd_spidev, cmd const[SPI_IOC_WR_MODE], arg ptr[in, int8])
+ioctl$SPI_IOC_WR_MODE32(fd fd_spidev, cmd const[SPI_IOC_WR_MODE32], arg ptr[in, int32])
+ioctl$SPI_IOC_WR_LSB_FIRST(fd fd_spidev, cmd const[SPI_IOC_WR_LSB_FIRST], arg ptr[in, int8])
+ioctl$SPI_IOC_WR_BITS_PER_WORD(fd fd_spidev, cmd const[SPI_IOC_WR_BITS_PER_WORD], arg ptr[in, int8])
+ioctl$SPI_IOC_WR_MAX_SPEED_HZ(fd fd_spidev, cmd const[SPI_IOC_WR_MAX_SPEED_HZ], arg ptr[in, int32])

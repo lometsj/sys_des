@@ -1,0 +1,9 @@
+#msm_rng
+#../msm/drivers/char/hw_random/msm-rng.c
+
+resource fd_msmrng[fd]
+openat$msmrng(fd const[AT_FDCWD], dev ptr[in, string["/dev/msm_rng"]], flags flags[open_flags], mode const[0]) fd_msmrng
+#syz_open_dev$msmrng(dev ptr[in, string["/dev/msm_rng"]], id intptr, flags flags[open_flags]) fd_msmrng
+#msm_rng_ioctl
+
+ioctl$QRNG_IOCTL_RESET_BUS_BANDWIDTH(fd fd_msmrng, cmd const[QRNG_IOCTL_RESET_BUS_BANDWIDTH])

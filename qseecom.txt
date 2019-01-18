@@ -1,0 +1,196 @@
+#qseecom
+#../msm/drivers/misc/qseecom.c
+
+resource fd_qseecom[fd]
+openat$qseecom(fd const[AT_FDCWD], dev ptr[in, string["/dev/qseecom"]], flags flags[open_flags], mode const[0]) fd_qseecom
+#syz_open_dev$qseecom(dev ptr[in, string["/dev/qseecom"]], id intptr, flags flags[open_flags]) fd_qseecom
+#qseecom_ioctl
+ioctl$QSEECOM_IOCTL_REGISTER_LISTENER_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_REGISTER_LISTENER_REQ], arg ptr[in, qseecom_register_listener_req])
+ioctl$QSEECOM_IOCTL_UNREGISTER_LISTENER_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_UNREGISTER_LISTENER_REQ])
+ioctl$QSEECOM_IOCTL_SEND_CMD_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SEND_CMD_REQ], arg ptr[in, qseecom_send_cmd_req])
+ioctl$QSEECOM_IOCTL_SEND_MODFD_CMD_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SEND_MODFD_CMD_REQ], arg ptr[in, qseecom_send_modfd_cmd_req])
+ioctl$QSEECOM_IOCTL_SEND_MODFD_CMD_64_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SEND_MODFD_CMD_64_REQ], arg ptr[in, qseecom_send_modfd_cmd_req])
+ioctl$QSEECOM_IOCTL_RECEIVE_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_RECEIVE_REQ])
+ioctl$QSEECOM_IOCTL_SEND_RESP_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SEND_RESP_REQ])
+ioctl$QSEECOM_IOCTL_SET_MEM_PARAM_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SET_MEM_PARAM_REQ], arg ptr[in, qseecom_set_sb_mem_param_req])
+ioctl$QSEECOM_IOCTL_LOAD_APP_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_LOAD_APP_REQ], arg ptr[inout, qseecom_load_img_req])
+ioctl$QSEECOM_IOCTL_UNLOAD_APP_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_UNLOAD_APP_REQ])
+ioctl$QSEECOM_IOCTL_GET_QSEOS_VERSION_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_GET_QSEOS_VERSION_REQ], arg ptr[inout, qseecom_qseos_version_req])
+ioctl$QSEECOM_IOCTL_PERF_ENABLE_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_PERF_ENABLE_REQ])
+ioctl$QSEECOM_IOCTL_PERF_DISABLE_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_PERF_DISABLE_REQ])
+ioctl$QSEECOM_IOCTL_SET_BUS_SCALING_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SET_BUS_SCALING_REQ], arg ptr[in, int32])
+ioctl$QSEECOM_IOCTL_LOAD_EXTERNAL_ELF_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_LOAD_EXTERNAL_ELF_REQ], arg ptr[inout, qseecom_load_img_req])
+ioctl$QSEECOM_IOCTL_UNLOAD_EXTERNAL_ELF_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_UNLOAD_EXTERNAL_ELF_REQ])
+ioctl$QSEECOM_IOCTL_APP_LOADED_QUERY_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_APP_LOADED_QUERY_REQ], arg ptr[inout, qseecom_qseos_app_load_query])
+ioctl$QSEECOM_IOCTL_SEND_CMD_SERVICE_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SEND_CMD_SERVICE_REQ], arg ptr[in, qseecom_send_svc_cmd_req])
+ioctl$QSEECOM_IOCTL_CREATE_KEY_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_CREATE_KEY_REQ], arg ptr[in, qseecom_create_key_req])
+ioctl$QSEECOM_IOCTL_WIPE_KEY_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_WIPE_KEY_REQ], arg ptr[in, qseecom_wipe_key_req])
+ioctl$QSEECOM_IOCTL_UPDATE_KEY_USER_INFO_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_UPDATE_KEY_USER_INFO_REQ], arg ptr[in, qseecom_update_key_userinfo_req])
+ioctl$QSEECOM_IOCTL_SAVE_PARTITION_HASH_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SAVE_PARTITION_HASH_REQ], arg ptr[in, qseecom_save_partition_hash_req])
+ioctl$QSEECOM_IOCTL_IS_ES_ACTIVATED_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_IS_ES_ACTIVATED_REQ], arg ptr[out, qseecom_is_es_activated_req])
+ioctl$QSEECOM_IOCTL_MDTP_CIPHER_DIP_REQ(fd fd_qseecom, cmd const[QSEECOM_IOCTL_MDTP_CIPHER_DIP_REQ], arg ptr[in, qseecom_mdtp_cipher_dip_req])
+ioctl$QSEECOM_IOCTL_SEND_MODFD_RESP(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SEND_MODFD_RESP], arg ptr[in, qseecom_send_modfd_listener_resp])
+ioctl$QSEECOM_IOCTL_SEND_MODFD_RESP_64(fd fd_qseecom, cmd const[QSEECOM_IOCTL_SEND_MODFD_RESP_64], arg ptr[in, qseecom_send_modfd_listener_resp])
+ioctl$QSEECOM_QTEEC_IOCTL_CLOSE_SESSION_REQ(fd fd_qseecom, cmd const[QSEECOM_QTEEC_IOCTL_CLOSE_SESSION_REQ], arg ptr[in, qseecom_qteec_req])
+ioctl$QSEECOM_QTEEC_IOCTL_INVOKE_MODFD_CMD_REQ(fd fd_qseecom, cmd const[QSEECOM_QTEEC_IOCTL_INVOKE_MODFD_CMD_REQ], arg ptr[in, qseecom_qteec_modfd_req])
+ioctl$QSEECOM_QTEEC_IOCTL_REQUEST_CANCELLATION_REQ(fd fd_qseecom, cmd const[QSEECOM_QTEEC_IOCTL_REQUEST_CANCELLATION_REQ], arg ptr[in, qseecom_qteec_modfd_req])
+ioctl$QSEECOM_IOCTL_GET_CE_PIPE_INFO(fd fd_qseecom, cmd const[QSEECOM_IOCTL_GET_CE_PIPE_INFO], arg ptr[inout, qseecom_ce_info_req])
+ioctl$QSEECOM_IOCTL_FREE_CE_PIPE_INFO(fd fd_qseecom, cmd const[QSEECOM_IOCTL_FREE_CE_PIPE_INFO], arg ptr[in, qseecom_ce_info_req])
+ioctl$QSEECOM_IOCTL_QUERY_CE_PIPE_INFO(fd fd_qseecom, cmd const[QSEECOM_IOCTL_QUERY_CE_PIPE_INFO], arg ptr[inout, qseecom_ce_info_req])
+
+#include/upai/linux/qseecom.h
+
+qseecom_register_listener_req {
+    listener_id int32
+    ifd_data_fd int32
+    virt_sb_base    buffer[in]
+    sb_size     int32
+}
+
+qseecom_send_cmd_req {
+    cmd_req_buf buffer[in]
+    cmd_req_len int32
+    resp_buf    buffer[inout]
+    resp_len    ptr[inout, int32]
+}
+
+define MAX_ION_FD 4
+
+qseecom_send_modfd_cmd_req {
+    cmd_req_buf buffer[in]
+    cmd_req_len int32
+    resp_buf    buffer[inout]
+    resp_len    int32
+    ifd_data    array[qseecom_ion_fd_info, MAX_ION_FD]
+}
+
+qseecom_set_sb_mem_param_req {
+    ifd_data_fd int32
+    virt_sb_base    buffer[in]
+    sb_len  int32
+}
+
+define  MAX_APP_NAME_SIZE 64
+
+qseecom_load_img_req {
+    mdt_len int32
+    img_len int32
+    ifd_data_fd int32
+    img_name    array[int8, MAX_APP_NAME_SIZE]
+    int32   app_arch
+    int32   app_id
+}
+
+qseecom_qseos_version_req {
+    qseos_version   int32
+}
+
+qseecom_qseos_app_load_query {
+    app_name    array[int8, MAX_APP_NAME_SIZE]
+    app_id      int32
+    app_arch    int32
+}
+
+qseecom_send_svc_cmd_req {
+    cmd_id  int32
+    cmd_req_buf buffer[in]
+    cmd_req_len int32
+    resp_buf    buffer[inout]
+    resp_len    int32
+}
+
+define QSEECOM_HASH_SIZE 32
+
+qseecom_create_key_req {
+    hash32  array[int8, QSEECOM_HASH_SIZE]
+    usage   flags[qseecom_key_management_usage_type, int32]
+}
+
+
+#enum qseecom_key_management_usage_type {
+#	QSEOS_KM_USAGE_DISK_ENCRYPTION = 0x01,
+#	QSEOS_KM_USAGE_FILE_ENCRYPTION = 0x02,
+#	QSEOS_KM_USAGE_UFS_ICE_DISK_ENCRYPTION = 0x03,
+#	QSEOS_KM_USAGE_SDCC_ICE_DISK_ENCRYPTION = 0x04,
+#	QSEOS_KM_USAGE_MAX
+#};
+
+qseecom_key_management_usage_type = 1, 2, 3, 4, 5
+
+qseecom_wipe_key_req {
+    usage   flags[qseecom_key_management_usage_type, int32]
+    wipe_key_flag   flags[wipe_key_flags, int32]
+}
+
+wipe_key_flags = 0, 1
+
+define QSEECOM_HASH_SIZE 32
+
+qseecom_update_key_userinfo_req {
+    current_hash32  array[int8, QSEECOM_HASH_SIZE]
+    new_hash32      array[int8, QSEECOM_HASH_SIZE]
+    usage   flags[qseecom_key_management_usage_type, int32]
+}
+
+define SHA256_DIGEST_LENGTH (256/8)
+
+qseecom_save_partition_hash_req {
+    partition_id    int32
+    digest  array[int8, SHA256_DIGEST_LENGTH]
+}
+
+qseecom_is_es_activated_req {
+    is_activated    int32
+}
+
+qseecom_mdtp_cipher_dip_req {
+    in_buf  ptr[in, int8]
+    in_buf_size int32
+    out_buf ptr[out, int8]
+    out_buf_size    int8
+    direction       int8
+}
+
+qseecom_send_modfd_listener_resp {
+    resp_buf_ptr    buffer[inout]
+    resp_len        int32
+    ifd_data        array[qseecom_ion_fd_info, MAX_ION_FD]
+}
+
+qseecom_ion_fd_info {
+    fd  int32
+    cmd_buf_offset  int32
+}
+
+qseecom_qteec_modfd_req {
+    req_ptr     buffer[in]
+    req_len     int32
+    resp_ptr    buffer[inout]
+    resp_len    int32
+    ifd_data    array[qseecom_ion_fd_info, MAX_ION_FD]
+}
+
+qseecom_qteec_req {
+    req_ptr buffer[in]
+    req_len int32
+    resp_ptr    buffer[inout]
+    resp_len    int32
+}
+
+define MAX_CE_INFO_HANDLE_SIZE 32
+define MAX_CE_PIPE_PAIR_PER_UNIT 3
+
+qseecom_ce_info_req {
+    handle  array[int8, MAX_CE_INFO_HANDLE_SIZE]
+    usage   int32
+    unit_num    int32
+    num_ce_pipe_entries int32
+    ce_pipe_entry   array[qseecom_ce_pipe_entry, MAX_CE_PIPE_PAIR_PER_UNIT]
+}
+
+qseecom_ce_pipe_entry {
+    valid   int32
+    ce_num  int32
+    ce_pipe_pair    int32
+}
+
