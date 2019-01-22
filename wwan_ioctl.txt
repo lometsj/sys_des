@@ -2,7 +2,9 @@
 #../msm/drivers/platform/msm/ipa/ipa_v3/rmnet_ipa_fd_ioctl.c
 
 resource fd_wwanioctl[fd]
-syz_open_dev$wwanioctl(dev ptr[in, string["/dev/wwan_ioctl"]], id intptr, flags flags[open_flags]) fd_wwanioctl
+openat$wwanioctl(fd const[AT_FDCWD], dev ptr[in, string["/dev/wwan_ioctl"]], flags flags[open_flags], mode const[0]) fd_wwanioctl
+
+#syz_open_dev$wwanioctl(dev ptr[in, string["/dev/wwan_ioctl"]], id intptr, flags flags[open_flags]) fd_wwanioctl
 #ipa3_wan_ioctl
 ioctl$WAN_IOC_ADD_FLT_RULE(fd fd_wwanioctl, cmd const[WAN_IOC_ADD_FLT_RULE], arg ptr[inout, ipa_install_fltr_rule_req_msg_v01])
 ioctl$WAN_IOC_ADD_FLT_RULE_INDEX(fd fd_wwanioctl, cmd const[WAN_IOC_ADD_FLT_RULE_INDEX], arg ptr[inout, ipa_fltr_installed_notif_req_msg_v01])

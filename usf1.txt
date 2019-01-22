@@ -2,7 +2,9 @@
 #../msm/drivers/misc/qcom/qdsp6v2/ultrasound/usf.c
 
 resource fd_usf1[fd]
-syz_open_dev$usf1(dev ptr[in, string["/dev/usf1"]], id intptr, flags flags[open_flags]) fd_usf1
+openat$usf1(fd const[AT_FDCWD], dev ptr[in, string["/dev/usf1"]], flags flags[open_flags], mode const[0]) fd_usf1
+
+#syz_open_dev$usf1(dev ptr[in, string["/dev/usf1"]], id intptr, flags flags[open_flags]) fd_usf1
 #usf_ioctl
 ioctl$US_START_TX(fd fd_usf1, cmd const[US_START_TX])
 ioctl$US_START_RX(fd fd_usf1, cmd const[US_START_RX])

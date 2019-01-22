@@ -2,7 +2,8 @@
 #../msm/drivers/spi/spidev.c
 
 resource fd_spidev[fd]
-syz_open_dev$spidev(dev ptr[in, string["/dev/spidev"]], id intptr, flags flags[open_flags]) fd_spidev
+openat$spidev(fd const[AT_FDCWD], dev ptr[in, string["/dev/spidev"]], flags flags[open_flags], mode const[0]) fd_spidev
+#syz_open_dev$spidev(dev ptr[in, string["/dev/spidev"]], id intptr, flags flags[open_flags]) fd_spidev
 #spidev_ioctl
 ioctl$SPI_IOC_RD_MODE(fd fd_spidev, cmd const[SPI_IOC_RD_MODE], arg ptr[out, int8])
 ioctl$SPI_IOC_RD_MODE32(fd fd_spidev, cmd const[SPI_IOC_RD_MODE32], arg ptr[out, int32])

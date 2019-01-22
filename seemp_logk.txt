@@ -1,0 +1,14 @@
+#qcedev
+#/drivers/platform/msm/seemp_core/seemp_logk.c
+
+resource fd_seemplogk[fd]
+openat$seemplogk(fd const[AT_FDCWD], dev ptr[in, string["/dev/seemp_logk"]], flags flags[open_flags], mode const[0]) fd_seemplogk
+#seemplogk_ioctl
+ioctl$SEEMP_CMD_RESERVE_RDBLKS(fd fd_seemplogk, cmd const[SEEMP_CMD_RESERVE_RDBLKS], arg ptr[out, int64])
+ioctl$SEEMP_CMD_RELEASE_RDBLKS(fd fd_seemplogk, cmd const[SEEMP_CMD_RELEASE_RDBLKS])
+ioctl$SEEMP_CMD_GET_RINGSZ(fd fd_seemplogk, cmd const[SEEMP_CMD_GET_RINGSZ], arg ptr[out, int32])
+ioctl$SEEMP_CMD_GET_BLKSZ(fd fd_seemplogk, cmd const[SEEMP_CMD_GET_BLKSZ], arg ptr[out, int32])
+ioctl$SEEMP_CMD_SET_MASK(fd fd_seemplogk, cmd const[SEEMP_CMD_SET_MASK])
+ioctl$SEEMP_CMD_SET_MAPPING(fd fd_seemplogk, cmd const[SEEMP_CMD_SET_MAPPING])
+ioctl$SEEMP_CMD_CHECK_FILTER(fd fd_seemplogk, cmd const[SEEMP_CMD_CHECK_FILTER], arg ptr[out, int32])
+

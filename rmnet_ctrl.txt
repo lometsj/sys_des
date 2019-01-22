@@ -1,8 +1,8 @@
-#u_ctrl_qit
+#rmnet_ctrl
 #/Users/lometsj/Documents/msm/drivers/usb/gadget/function/u_ctrl_qti.c
 
 resource fd_uctrlqit[fd]
-syz_open_dev$uctrlqit(dev ptr[in, string["/dev/u_ctrl_qit"]], id intptr, flags flags[open_flags]) fd_uctrlqit
+syz_open_dev$uctrlqit(dev ptr[in, string["/dev/rmnet_ctrl"]], id intptr, flags flags[open_flags]) fd_uctrlqit
 #qti_ctrl_ioctl
 ioctl$QTI_CTRL_MODEM_OFFLINE(fd fd_uctrlqit, cmd const[QTI_CTRL_MODEM_OFFLINE])
 ioctl$QTI_CTRL_MODEM_ONLINE(fd fd_uctrlqit, cmd const[QTI_CTRL_MODEM_ONLINE])

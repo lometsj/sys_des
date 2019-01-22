@@ -1,0 +1,11 @@
+#android_mbim
+#drivers/usb/gadget/function/f_mbim.c
+
+resource fd_androidmbim[fd]
+syz_open_dev$androidmbim(dev ptr[in, string["/dev/android_mbim"]], id intptr, flags flags[open_flags]) fd_androidmbim
+#mbim_ioctl
+ioctl$MBIM_GET_NTB_SIZE(fd fd_androidmbim, cmd const[MBIM_GET_NTB_SIZE], arg ptr[])
+ioctl$MBIM_GET_DATAGRAM_COUNT(fd fd_androidmbim, cmd const[MBIM_GET_DATAGRAM_COUNT], arg ptr[])
+ioctl$MBIM_EP_LOOKUP(fd fd_androidmbim, cmd const[MBIM_EP_LOOKUP], arg ptr[])
+ioctl$USB_GADGET_XPORT_BAM_DMUX(fd fd_androidmbim, cmd const[USB_GADGET_XPORT_BAM_DMUX], arg ptr[])
+ioctl$USB_GADGET_XPORT_BAM2BAM_IPA(fd fd_androidmbim, cmd const[USB_GADGET_XPORT_BAM2BAM_IPA], arg ptr[])
